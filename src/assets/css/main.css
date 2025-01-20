@@ -1,0 +1,13 @@
+.bg-warning-custom { background-color: yellow; }
+.bg-success-custom { background-color: lightgreen; }
+.text-end { text-align: end; }
+.custom-alert {
+    max-width: 300px;
+    height: 38px; /* Adjust the height to match the input field's height */
+    display: flex;
+    align-items: center; /* Vertically center the text */
+    padding: 7px 10px;
+}
+.form-control {
+    height: 38px; /* Ensure the input field has the same height */
+}
