@@ -1,0 +1,39 @@
+# Node.js dependencies (if using npm/yarn)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build/compiled files
+dist/
+build/
+public/
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temp files
+*.tmp
+*.swp
+*.swo
+
+# Linting and testing
+.eslintcache
+coverage/
+
+# Environment variables (if applicable)
+.env
+.env.local
+.env.*.local
