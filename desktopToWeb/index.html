@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>Warehouse application</title>
+</head>
+<body id="mainPage">
+<div class="Parameters">
+    <div class="ParameterElement">
+        <label>Operator Name</label>
+        <input type="text" name="txtOperatorName" id="txtOperatorName" required="required" class="input_field"/>
+        <label>Current State</label>
+        <input type="text" name="txtCurrentState" id="txtCurrentState" tabindex="-1" required="required" class="current_state"/>
+        <button id="btnEndSession" tabindex="-1">Completed</button>
+    </div>
+    <div class="ParameterElement">
+        <label>Mode: </label>
+        <select name="txtOperatingmodes" id="txtOperatingmodes" size="auto" class="input_field"></select>
+    </div>
+</div>
+<div class="ParentID">
+    <label>Parent ID:</label>
+    <input type="text" name="txtParentID" id="txtParentID" required="required" class="input_field"/>
+    <div class="ParentErrorMessage">
+        <input type="text" name="txtParentResponse" id="txtParentResponse" readonly="readonly" tabindex="-1" class="ParentMessage">
+    </div>
+</div>
+<div class="AssetID">
+    <label>Asset ID: </label>
+    <input type="text" name="txtAssetID" id="txtAssetID" required="required" tabindex="-1" class="input_field"/>
+</div>
+<div class="transactionRow">
+    <h2 class="transactionRow">Transaction</h2>
+    <label class="asset_failure_count_label">Asset Scan failure Count</label>
+    <input type="text" name="txtAssetScanFail" id="txtAssetScanFail" required="required" readonly="readonly" tabindex="-1" class="asset_failure_count"/>
+    <button id="btnRetry" tabindex="-1" class="button">Retry submit</button>
+</div>
+<div class="transactionTable" id="transactionTable">
+    <div class="Container">
+        <table class="sortable-theme-bootstrap" data-sortable id="transaction" width="100%">
+            <thead>
+            <tr>
+                <th width="10%" data-sorted-direction="descending" datatype="numeric">Transaction ID</th>
+                <th width="10%" data-sortable="false">Asset ID</th>
+                <th width="20%" data-sortable="false">Equipment</th>
+                <th width="40%" data-sortable="false">Notes</th>
+                <th width="20%" data-sortable="false">Force</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="inventoryRow">
+    <h2>Inventory List</h2>
+    <label>Inventory list count</label>
+    <input type="text" name="txtInventoryCount" id="txtInventoryCount" required="required" readonly="readonly" class="inventory_count"/>
+</div>
+<div class="AssetPalletList" id="tblAssetPalletList">
+    <div class="Container">
+        <table class="sortable-theme-bootstrap" data-sortable id="inventory" width="100%">
+            <thead>
+            <tr>
+                <th width="10%" data-sorted-direction="descending" datatype="numeric">Asset ID</th>
+                <th width="40%" data-sortable="false">Status</th>
+                <th width="25%" data-sortable="false">Make</th>
+                <th width="25%" data-sortable="false">Model</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script defer src="./renderer.js"></script>
+<script src="./sortable.min.js"></script>
+<link rel="stylesheet" href="sortable-theme-bootstrap.css" />
+</body>
+</html>
