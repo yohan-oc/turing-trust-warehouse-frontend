@@ -2,18 +2,18 @@
   <div class="container mt-3">
     <div class="mb-3">
       <label class="fw-bold">Operator Name:</label>
-      <input type="text" class="form-control d-inline w-auto" value="SC">
+      <input type="text" class="form-control d-inline w-auto" v-model="operatorName" @keyup.enter="checkOperator">
       <label class="fw-bold ms-3">Current State:</label>
       <input type="text" class="form-control d-inline w-auto" value="Asset Scan" disabled>
-      <button class="btn btn-secondary ms-3" disabled>Completed</button>
+      <button class="btn btn-secondary ms-3" style="margin-top: -5px;" disabled>Completed</button>
       <label class="fw-bold ms-3">Mode:</label>
-      <select class="form-select d-inline w-auto">
+      <select class="form-select d-inline w-auto" :disabled="!isOperatorValid">
         <option selected>Work-in-Progress Palleting</option>
         <option selected>Shipping Box Palleting</option>
       </select>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3" v-if="showParent">
       <div class="d-flex align-items-center">
         <div class="col-auto">
           <label class="fw-bold" for="assetId">Parent ID:</label>
@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3" v-if="showAsset">
       <div class="d-flex align-items-center">
         <div class="col-auto">
           <label class="fw-bold" for="assetId">Asset ID:</label>
@@ -53,10 +53,10 @@
     </div>
 
     <!-- Transaction Section -->
-    <h4>Transaction</h4>
-    <div class="mb-2 text-end">Asset Scan Failure Count: <input type="text" value="0" class="form-control d-inline w-auto"></div>
+    <h4 v-if="showTransActionsAndInventory">Transaction</h4>
+    <div class="mb-2 text-end" v-if="showTransActionsAndInventory">Asset Scan Failure Count: <input type="text" value="0" class="form-control d-inline w-auto"></div>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" v-if="showTransActionsAndInventory">
       <thead>
       <tr>
         <th>Transaction ID</th>
@@ -85,10 +85,10 @@
     </table>
 
     <!-- Inventory List Section -->
-    <h4>Inventory List</h4>
-    <div class="mb-2">Inventory list count <input type="text" value="2" class="form-control d-inline w-auto"></div>
+    <h4 v-if="showTransActionsAndInventory">Inventory List</h4>
+    <div class="mb-2" v-if="showTransActionsAndInventory">Inventory list count <input type="text" value="2" class="form-control d-inline w-auto"></div>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" v-if="showTransActionsAndInventory">
       <thead>
       <tr>
         <th>Asset ID</th>
@@ -118,6 +118,24 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      operatorName: "",
+      isOperatorValid: false,
+      showContent: false,
+      showParent: false,
+      showAsset: false,
+      showTransActionsAndInventory: false
+    };
+  },
+  methods: {
+    checkOperator() {
+      var isAuthenticated = this.operatorName.trim().toUpperCase() === "SC";
+      this.isOperatorValid = isAuthenticated;
+      this.showParent = isAuthenticated;
+      this.showAsset = isAuthenticated;
+    },
+  },
 };
 </script>
 
