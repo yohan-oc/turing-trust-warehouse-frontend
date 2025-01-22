@@ -2,14 +2,16 @@
   <div class="container mt-3">
     <div class="mb-3">
       <label class="fw-bold">Operator Name:</label>
-      <input type="text" class="form-control d-inline w-auto" v-model="operatorName" @keyup.enter="checkOperator">
+      <input type="text" class="form-control d-inline w-auto" :disabled="isOperatorDisabled" v-model="operatorName" @keyup.enter="checkOperator" ref="operatorInput">
       <label class="fw-bold ms-3">Current State:</label>
       <input type="text" class="form-control d-inline w-auto" value="Asset Scan" disabled>
       <button class="btn btn-secondary ms-3" style="margin-top: -5px;" disabled>Completed</button>
       <label class="fw-bold ms-3">Mode:</label>
-      <select class="form-select d-inline w-auto" :disabled="!isOperatorValid">
+      <select class="form-select d-inline w-auto" :disabled="isModeDisabled" ref="modeInput" v-model="selectedMode" @change="modeChanged">
+        <option selected>Select a mode</option>
         <option selected>Work-in-Progress Palleting</option>
         <option selected>Shipping Box Palleting</option>
+        <option v-for="mode in modes" :key="mode">{{ mode }}</option>
       </select>
     </div>
 
@@ -20,8 +22,8 @@
         </div>
         <div class="col">
           <div class="d-flex align-items-center">
-            <input type="text" class="form-control d-inline w-auto bg-warning" id="parentId" value="SP000123">
-            <!-- <span class="badge bg-success">OK</span> -->
+            <input type="text" class="form-control d-inline w-auto" :disabled="isParentDisabled" v-model="parentId" @keyup.enter="scanParent" ref="parentInput">
+            <span class="badge bg-success" v-if="isParentIdValid">OK</span>
             <div id="message" class="alert alert-danger ms-2 mb-0 custom-alert" style="display: none; max-width: 300px;">
               <!-- Error message will appear here -->
             </div>
@@ -40,7 +42,7 @@
         </div>
         <div class="col">
           <div class="d-flex align-items-center">
-            <input type="text" class="form-control d-inline w-auto bg-warning" id="assetId">
+            <input type="text" class="form-control d-inline w-auto" v-model="assetId" @keyup.enter="scanAsset" ref="assetInput">
             <div id="message" class="alert alert-danger ms-2 mb-0 custom-alert" style="display: none; max-width: 300px;">
               <!-- Error message will appear here -->
             </div>
@@ -121,19 +123,66 @@ export default {
   data() {
     return {
       operatorName: "",
-      isOperatorValid: false,
+      isOperatorDisabled: false,
+      parentId: "", // SP000123,
+      isParentIdValid: false,
+      isParentDisabled: false,
+      assetId: "", // SP000123
+      selectedMode: "",
+      modes: [],
+      isModeDisabled: true,
       showContent: false,
       showParent: false,
       showAsset: false,
-      showTransActionsAndInventory: false
+      showTransActionsAndInventory: false,
     };
+  },
+  mounted() {
+    this.fetchModes();
   },
   methods: {
     checkOperator() {
-      var isAuthenticated = this.operatorName.trim().toUpperCase() === "SC";
-      this.isOperatorValid = isAuthenticated;
-      this.showParent = isAuthenticated;
-      this.showAsset = isAuthenticated;
+      let isAuthenticated = this.operatorName.trim().toUpperCase() === "SC";
+      if(isAuthenticated){
+        this.isModeDisabled = !isAuthenticated;
+        this.$nextTick(() => {
+          this.$refs.modeInput.focus();
+        })
+      } else{
+        alert("Error: Invalid operator name: " + this.operatorName)
+      }
+    },
+    async fetchModes() {
+      try {
+        const response = await fetch("https://mocki.io/v1/d1c96117-ee6f-4d3d-b9db-082487a94fbc");
+        const data = await response.json();
+        this.modes = data.modes; // Extract array from response
+
+        // Ensure the first option is always "Select a mode"
+        this.selectedMode = "Select a mode";
+      } catch (error) {
+        console.error("Error fetching modes:", error);
+      }
+    },
+    modeChanged() {
+      //alert(this.selectedMode)
+      this.showParent = true;
+      this.$nextTick(() => {
+        this.$refs.parentInput.focus();
+      })
+    },
+    scanParent() {
+      this.showAsset = true;
+      this.isModeDisabled = true;
+      this.isParentIdValid = true;
+      this.isOperatorDisabled = true;
+      this.$nextTick(() => {
+        this.$refs.assetInput.focus();
+      })
+    },
+    scanAsset() {
+      this.showTransActionsAndInventory = true;
+      this.isParentDisabled = true;
     },
   },
 };
