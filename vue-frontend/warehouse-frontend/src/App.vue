@@ -1,3 +1,74 @@
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      operatorName: "",
+      isOperatorDisabled: false,
+      parentId: "", // SP000123,
+      isParentIdValid: false,
+      isParentDisabled: false,
+      assetId: "", // SP000123
+      selectedMode: "",
+      modes: [],
+      isModeDisabled: true,
+      showContent: false,
+      showParent: false,
+      showAsset: false,
+      showTransActionsAndInventory: false,
+    };
+  },
+  mounted() {
+    this.fetchModes();
+  },
+  methods: {
+    checkOperator() {
+      let isAuthenticated = this.operatorName.trim().toUpperCase() === "SC";
+      if(isAuthenticated){
+        this.isModeDisabled = !isAuthenticated;
+        this.$nextTick(() => {
+          this.$refs.modeInput.focus();
+        })
+      } else{
+        alert("Error: Invalid operator name: " + this.operatorName)
+      }
+    },
+    async fetchModes() {
+      try {
+        const response = await fetch("http://localhost:8080/v1/getmodes");
+        const data = await response.json();
+        this.modes = data.operation_modes; // Extract array from response
+
+        // Ensure the first option is always "Select a mode"
+        this.selectedMode = "Select a mode";
+      } catch (error) {
+        console.error("Error fetching modes:", error);
+      }
+    },
+    modeChanged() {
+      //alert(this.selectedMode)
+      this.showParent = true;
+      this.$nextTick(() => {
+        this.$refs.parentInput.focus();
+      })
+    },
+    scanParent() {
+      this.showAsset = true;
+      this.isModeDisabled = true;
+      this.isParentIdValid = true;
+      this.isOperatorDisabled = true;
+      this.$nextTick(() => {
+        this.$refs.assetInput.focus();
+      })
+    },
+    scanAsset() {
+      this.showTransActionsAndInventory = true;
+      this.isParentDisabled = true;
+    },
+  },
+};
+</script>
+
 <template>
   <div class="container mt-3">
     <div class="mb-3">
@@ -9,8 +80,6 @@
       <label class="fw-bold ms-3">Mode:</label>
       <select class="form-select d-inline w-auto" :disabled="isModeDisabled" ref="modeInput" v-model="selectedMode" @change="modeChanged">
         <option selected>Select a mode</option>
-        <option selected>Work-in-Progress Palleting</option>
-        <option selected>Shipping Box Palleting</option>
         <option v-for="mode in modes" :key="mode">{{ mode }}</option>
       </select>
     </div>
@@ -116,77 +185,6 @@
     </table>
   </div>
 </template>
-
-<script>
-export default {
-  name: "App",
-  data() {
-    return {
-      operatorName: "",
-      isOperatorDisabled: false,
-      parentId: "", // SP000123,
-      isParentIdValid: false,
-      isParentDisabled: false,
-      assetId: "", // SP000123
-      selectedMode: "",
-      modes: [],
-      isModeDisabled: true,
-      showContent: false,
-      showParent: false,
-      showAsset: false,
-      showTransActionsAndInventory: false,
-    };
-  },
-  mounted() {
-    this.fetchModes();
-  },
-  methods: {
-    checkOperator() {
-      let isAuthenticated = this.operatorName.trim().toUpperCase() === "SC";
-      if(isAuthenticated){
-        this.isModeDisabled = !isAuthenticated;
-        this.$nextTick(() => {
-          this.$refs.modeInput.focus();
-        })
-      } else{
-        alert("Error: Invalid operator name: " + this.operatorName)
-      }
-    },
-    async fetchModes() {
-      try {
-        const response = await fetch("https://mocki.io/v1/d1c96117-ee6f-4d3d-b9db-082487a94fbc");
-        const data = await response.json();
-        this.modes = data.modes; // Extract array from response
-
-        // Ensure the first option is always "Select a mode"
-        this.selectedMode = "Select a mode";
-      } catch (error) {
-        console.error("Error fetching modes:", error);
-      }
-    },
-    modeChanged() {
-      //alert(this.selectedMode)
-      this.showParent = true;
-      this.$nextTick(() => {
-        this.$refs.parentInput.focus();
-      })
-    },
-    scanParent() {
-      this.showAsset = true;
-      this.isModeDisabled = true;
-      this.isParentIdValid = true;
-      this.isOperatorDisabled = true;
-      this.$nextTick(() => {
-        this.$refs.assetInput.focus();
-      })
-    },
-    scanAsset() {
-      this.showTransActionsAndInventory = true;
-      this.isParentDisabled = true;
-    },
-  },
-};
-</script>
 
 <style>
 .bg-warning-custom { background-color: yellow; }
