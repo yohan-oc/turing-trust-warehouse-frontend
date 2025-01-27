@@ -1,11 +1,7 @@
 <script>
-import AppTemplate from './components/AppTemplate.vue';
 
 export default {
   name: "App",
-  components: {
-    AppTemplate
-  },
   data() {
     return {
       operatorName: "",
@@ -74,9 +70,7 @@ export default {
 };
 </script>
 
-<template>
-  <AppTemplate />
-</template>
+<template src="./views/AppTemplate.html"></template>
 
 <style>
 .bg-warning-custom { background-color: yellow; }
