@@ -6,13 +6,8 @@
       <label class="fw-bold ms-3">Current State:</label>
       <input type="text" class="form-control d-inline w-auto" value="Asset Scan" disabled>
       <button class="btn btn-secondary ms-3" style="margin-top: -5px;" disabled>Completed</button>
-      <label class="fw-bold ms-3">Mode:</label>
-      <select class="form-select d-inline w-auto" :disabled="isModeDisabled" ref="modeInput" v-model="selectedMode" @change="modeChanged">
-        <option selected>Select a mode</option>
-        <option selected>Work-in-Progress Palleting</option>
-        <option selected>Shipping Box Palleting</option>
-        <option v-for="mode in modes" :key="mode">{{ mode }}</option>
-      </select>
+
+      <ModeDropdown v-model="selectedMode" :isDisabled="isModeDisabled" :modes="modes" @mode-changed="modeChanged" />
     </div>
 
     <div class="mb-3" v-if="showParent">
@@ -118,8 +113,13 @@
 </template>
 
 <script>
+import ModeDropdown from "./components/ModeDropdown.vue";
+
 export default {
   name: "App",
+  components: {
+    ModeDropdown
+  },
   data() {
     return {
       operatorName: "",
@@ -146,7 +146,9 @@ export default {
       if(isAuthenticated){
         this.isModeDisabled = !isAuthenticated;
         this.$nextTick(() => {
-          this.$refs.modeInput.focus();
+          if (this.$refs.modeDropdown) {
+            this.$refs.modeDropdown.focusDropdown();
+          }
         })
       } else{
         alert("Error: Invalid operator name: " + this.operatorName)
@@ -154,9 +156,11 @@ export default {
     },
     async fetchModes() {
       try {
-        const response = await fetch("https://mocki.io/v1/d1c96117-ee6f-4d3d-b9db-082487a94fbc");
+        const response = await fetch("http://localhost:8080/v1/getmodes");
         const data = await response.json();
-        this.modes = data.modes; // Extract array from response
+
+        console.log(data);
+        this.modes = data.operation_modes; // Extract array from response
 
         // Ensure the first option is always "Select a mode"
         this.selectedMode = "Select a mode";
