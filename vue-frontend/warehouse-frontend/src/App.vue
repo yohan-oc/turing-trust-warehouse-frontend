@@ -1,4 +1,5 @@
 <script>
+import { API_BASE_URL } from "@/config";
 
 export default {
   name: "App",
@@ -39,7 +40,7 @@ export default {
     },
     async fetchModes() {
       try {
-        const response = await fetch("http://localhost:8080/v1/getmodes");
+        const response = await fetch(`${API_BASE_URL}/v1/getmodes`);
         const data = await response.json();
         this.modes = data.operation_modes; // Extract array from response
 
