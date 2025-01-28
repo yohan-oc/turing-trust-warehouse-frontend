@@ -6,11 +6,12 @@ export default {
     return {
       operatorName: "",
       isOperatorDisabled: false,
+      currentState:"",
       parentId: "", // SP000123,
       isParentIdValid: false,
       isParentDisabled: false,
       assetId: "", // SP000123
-      selectedMode: "",
+      selectedMode: "Select a mode",
       modes: [],
       isModeDisabled: true,
       showContent: false,
@@ -26,12 +27,14 @@ export default {
     checkOperator() {
       let isAuthenticated = this.operatorName.trim().toUpperCase() === "SC";
       if(isAuthenticated){
+        playSuccessSound();
         this.isModeDisabled = !isAuthenticated;
         this.$nextTick(() => {
           this.$refs.modeInput.focus();
         })
       } else{
-        alert("Error: Invalid operator name: " + this.operatorName)
+        playErrorSound()
+        //alert("Error: Invalid operator name: " + this.operatorName)
       }
     },
     async fetchModes() {
@@ -58,6 +61,7 @@ export default {
       this.isModeDisabled = true;
       this.isParentIdValid = true;
       this.isOperatorDisabled = true;
+      this.currentState = "Parent scan";
       this.$nextTick(() => {
         this.$refs.assetInput.focus();
       })
@@ -65,9 +69,20 @@ export default {
     scanAsset() {
       this.showTransActionsAndInventory = true;
       this.isParentDisabled = true;
+      this.currentState = "Asset scan";
     },
   },
 };
+
+function playErrorSound(){
+  const errorSound = new Audio(require('@/assets/sounds/error-sound.mp3'));
+  errorSound.play();
+}
+
+function playSuccessSound(){
+  const successSound = new Audio(require('@/assets/sounds/success-sound.mp3'));
+  successSound.play();
+}
 </script>
 
 <template src="./views/AppTemplate.html"></template>

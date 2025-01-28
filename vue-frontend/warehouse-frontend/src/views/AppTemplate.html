@@ -3,10 +3,10 @@
         <label class="fw-bold">Operator Name:</label>
         <input type="text" class="form-control d-inline w-auto" :disabled="isOperatorDisabled" v-model="operatorName" @keyup.enter="checkOperator" ref="operatorInput">
         <label class="fw-bold ms-3">Current State:</label>
-        <input type="text" class="form-control d-inline w-auto" value="Asset Scan" disabled>
+        <input type="text" class="form-control d-inline w-auto" v-model="currentState" disabled>
         <button class="btn btn-secondary ms-3" style="margin-top: -5px;" disabled>Completed</button>
         <label class="fw-bold ms-3">Mode:</label>
-        <select class="form-select d-inline w-auto" :disabled="isModeDisabled" ref="modeInput" v-model="selectedMode" @change="modeChanged">
+        <select class="form-select d-inline" :disabled="isModeDisabled" ref="modeInput" v-model="selectedMode" @change="modeChanged" style="width: 400px;">
             <option selected>Select a mode</option>
             <option v-for="mode in modes" :key="mode">{{ mode }}</option>
         </select>
