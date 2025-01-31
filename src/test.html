@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Trust Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b4c62; /* Dark blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            border-bottom-width: 3px;
+            border-bottom-color: #04A27D;
+        }
+        .btn-primary {
+            background-color: #04A27D; /* Green button */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0a6b38;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 15px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card shadow">
+    <img src="logo.png" alt="Turing Trust Logo" class="logo">
+    <p class="text-l">Welcome to the Turing Trust warehouse management application.</p>
+    <p class="text-muted">Please enter your name to get started.</p>
+
+    <div class="mb-3">
+        <label for="fullname" class="form-label">Full name</label>
+        <input type="text" class="form-control" id="fullname" placeholder="Joe Bloggs">
+    </div>
+
+    <button class="btn btn-primary w-100">Continue</button>
+</div>
+
+</body>
+</html>
