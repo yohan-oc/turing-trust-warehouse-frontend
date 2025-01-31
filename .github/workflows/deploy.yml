@@ -3,7 +3,7 @@ name: Warehouse App - New
 on:
   push:
     branches:
-      - navigation-poc
+      - navigation-poc  # Runs only on the navigation-poc branch
 
 jobs:
   build-and-deploy:
@@ -17,8 +17,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: npm
-          cache-dependency-path: vue-frontend/warehouse-front-end/package-lock.json
 
       - name: Install dependencies
         run: |
