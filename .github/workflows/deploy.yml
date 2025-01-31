@@ -20,12 +20,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd vue-frontend/warehouse-front-end
+          cd vue-frontend/warehouse-frontend
           npm install
 
       - name: Build project
         run: |
-          cd vue-frontend/warehouse-front-end
+          cd vue-frontend/warehouse-frontend
           npm run build
 
       - name: Deploy to GitHub Pages
@@ -34,6 +34,6 @@ jobs:
         with:
           personal_token: ${{ secrets.GH_PAT }}
           publish_branch: gh-pages
-          publish_dir: vue-frontend/warehouse-front-end/dist  # Updated path
+          publish_dir: vue-frontend/frontend/dist  # Updated path
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
