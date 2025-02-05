@@ -5,6 +5,11 @@ export default {
       username: ""
     };
   },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.username.focus();
+    });
+  },
   methods: {
     login() {
       // if (this.username) {
@@ -27,7 +32,7 @@ export default {
 
     <div class="mb-3">
       <label for="fullname" class="form-label">Full name</label>
-      <input type="text" class="form-control" id="fullname" placeholder="Joe Bloggs" v-model="username">
+      <input type="text" class="form-control" id="fullname" placeholder="Joe Bloggs" v-model="username" ref="username">
     </div>
 
     <button class="btn btn-primary w-100" @click="login">Continue</button>
@@ -49,8 +54,7 @@ export default {
 }
 .btn-primary {
   background-color: #04A27D;
-  border-color: #04A27D;
-  border: none;
+  border: none #04A27D;
 }
 .btn-primary:hover {
   background-color: #04A27D;
