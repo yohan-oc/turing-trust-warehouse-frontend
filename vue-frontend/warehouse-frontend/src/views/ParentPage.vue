@@ -88,6 +88,7 @@ export default {
 .btn-primary:hover {
   background-color: #04A27D;
   border-color: #04A27D;
+  color: #fff;
 }
 .logo {
   display: block;
