@@ -8,7 +8,7 @@ export default {
   methods: {
     login() {
       if (this.username) {
-        this.$router.push("/home"); // Navigate to Home after login
+        this.$router.push("/mode"); // Navigate to Home after login
       } else {
         alert("Please enter username");
       }
