@@ -12,12 +12,14 @@ export default {
   },
   methods: {
     login() {
-      // if (this.username) {
-      //   this.$router.push("/mode"); // Navigate to Home after login
-      // } else {
-      //   alert("Please enter username");
-      // }
-      this.$router.push("/mode");
+      if (this.username) {
+        localStorage.setItem('isAuthenticated', "true");
+        localStorage.setItem('operatorName', this.username);
+        this.$router.push("/mode");
+      } else {
+        alert("Please enter username");
+      }
+      // this.$router.push("/mode");
     }
   }
 };

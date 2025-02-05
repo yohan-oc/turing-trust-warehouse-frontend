@@ -2,13 +2,21 @@
 export default {
   name: 'ModePage',
   methods: {
-    chooseMode() {
+    chooseMode(mode) {
       // if (this.username) {
       //   this.$router.push("/mode"); // Navigate to Home after login
       // } else {
       //   alert("Please enter username");
       // }
+      //alert(mode);
+      localStorage.setItem('mode', mode);
       this.$router.push("/parent");
+    },
+    logout() {
+      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('operatorName');
+      localStorage.removeItem('mode');
+      this.$router.push('/');
     }
   }
 };
@@ -19,7 +27,7 @@ export default {
       <a class="navbar-brand" href="#">
         <img src="../assets/logo_new.png" alt="Turing Trust Logo" height="30">
       </a>
-      <a class="logout" href="#"><i class="bi bi-box-arrow-left"></i> Log out</a>
+      <a class="logout" href="#" @click.prevent="logout"><i class="bi bi-box-arrow-left"></i> Log out</a>
     </nav>
 
     <div class="container">
@@ -34,14 +42,14 @@ export default {
           <div class="card">
             <img src="../assets/work-in-progress.png" alt="Work in Progress" width="50" class="d-block mx-auto">
             <br/><p>Work in progress palleting</p>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Work in progress palleting')">Start →</button>
           </div>
         </div>
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/shipping-box.png" alt="Shipping Box" width="50" class="d-block mx-auto">
             <br/><p>Shipping box palleting</p>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Shipping box palleting')">Start →</button>
           </div>
         </div>
       </div>
@@ -55,7 +63,7 @@ export default {
           <div class="card">
             <img src="../assets/desktop.png" alt="Wiped Desktops" width="50" class="d-block mx-auto">
             <br/><p>Boxing (Wiped) Desktops for shipping</p>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Wiped) Desktops for shipping')">Start →</button>
           </div>
         </div>
 
@@ -63,7 +71,7 @@ export default {
           <div class="card">
             <img src="../assets/desktop-imaged.png" alt="Imaged Desktops" width="50" class="d-block mx-auto">
             <br/><p>Boxing (Imaged) Desktops for shipping</p>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Imaged) Desktops for shipping')">Start →</button>
           </div>
         </div>
 
@@ -73,7 +81,7 @@ export default {
             <br/>
             <p>Boxing (Wiped) Laptops for shipping</p>
             <br/>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Wiped) Laptops for shipping')">Start →</button>
           </div>
         </div>
 
@@ -81,7 +89,7 @@ export default {
           <div class="card">
             <img src="../assets/laptop-imaged.png" alt="Imaged Laptops" width="50" class="d-block mx-auto">
             <br/><p>Boxing (Imaged) Laptops for shipping</p><br/>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Imaged) Laptops for shipping')">Start →</button>
           </div>
         </div>
       </div>
@@ -93,7 +101,7 @@ export default {
           <div class="card">
             <img src="../assets/monitor.png" alt="Monitors" width="50" class="d-block mx-auto">
             <br/><p>Boxing monitors for shipping</p><br/>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing monitors for shipping')">Start →</button>
           </div>
         </div>
 
@@ -101,7 +109,7 @@ export default {
           <div class="card">
             <img src="../assets/phone.png" alt="Phones and Laptops" width="50" class="d-block mx-auto">
             <br/><p>Boxing (Wiped) phones and laptops for shipping</p>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Wiped) phones and laptops for shipping')">Start →</button>
           </div>
         </div>
 
@@ -109,7 +117,7 @@ export default {
           <div class="card">
             <img src="../assets/money.png" alt="For Sale" width="50" class="d-block mx-auto">
             <br/><p>Boxing Desktops and Laptops for sale</p><br/>
-            <button class="btn btn-outline-success w-100" @click="chooseMode">Start →</button>
+            <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing Desktops and Laptops for sale')">Start →</button>
           </div>
         </div>
       </div>

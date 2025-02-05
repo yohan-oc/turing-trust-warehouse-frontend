@@ -2,13 +2,15 @@
 export default {
   data() {
     return {
-      parentId: ""
+      parentId: "",
+      mode: ""
     };
   },
   mounted() {
     this.$nextTick(() => {
       this.$refs.parentId.focus();
     });
+    this.mode = localStorage.getItem("mode");
   },
   methods: {
     scanParentId() {
@@ -33,7 +35,7 @@ export default {
 
   <div class="d-flex justify-content-center align-items-center vh-80 flex-column">
     <!-- Heading Outside the Card, Aligned to the Left -->
-    <p class="title">Work in progress palleting</p>
+    <p class="title">{{ mode }}</p>
 
     <!-- Card Container -->
     <div class="card shadow">
@@ -96,7 +98,7 @@ export default {
   width: 150px;
 }
 .title{
-  margin-left: -168px;
+  /*margin-left: -168px;*/
   color: #075976;
   font-size: 34px;
 }
