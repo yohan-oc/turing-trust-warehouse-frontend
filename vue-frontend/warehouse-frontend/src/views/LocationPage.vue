@@ -2,22 +2,22 @@
 export default {
   data() {
     return {
-      parentId: ""
+      locationId: ""
     };
   },
   mounted() {
     this.$nextTick(() => {
-      this.$refs.parentId.focus();
+      this.$refs.locationId.focus();
     });
   },
   methods: {
-    scanParentId() {
+    scanLocationId() {
       // if (this.username) {
       //   this.$router.push("/mode"); // Navigate to Home after login
       // } else {
       //   alert("Please enter username");
       // }
-      this.$router.push("/location");
+      //this.$router.push("/parent");
     },
   }
 };
@@ -37,21 +37,21 @@ export default {
 
     <!-- Card Container -->
     <div class="card shadow">
-      <img src="../assets/parent-scan.png" alt="Parent Id" class="logo">
-      <p class="text-l"><b>Scan parent</b></p>
+      <img src="../assets/location-scan.png" alt="Parent Id" class="logo">
+      <p class="text-l"><b>Scan location</b></p>
       <p class="text-muted">
-        Scan the barcode or enter the ID of the pallet that you’ll be
-        adding boxes to.
+        Scan the barcode or enter the ID of the location where the pallet
+        will be stored.
       </p>
 
       <div class="mb-3">
-        <label for="parentId" class="form-label">Parent ID</label>
-        <input type="text" class="form-control" id="parentId" v-model="parentId" ref="parentId">
+        <label for="parentId" class="form-label">Location ID</label>
+        <input type="text" class="form-control" id="parentId" v-model="locationId" ref="locationId">
       </div>
 
       <div class="form-group">
-        <button class="btn btn-primary" @click="scanParentId" style="width: 237px; margin-right: 8px">Cancel</button>
-        <button class="btn btn-primary" @click="scanParentId" style="width: 237px">Continue</button>
+        <button class="btn btn-primary" @click="scanLocationId" style="width: 237px; margin-right: 8px">Cancel</button>
+        <button class="btn btn-primary" @click="scanLocationId" style="width: 237px">Continue</button>
       </div>
     </div>
   </div>
