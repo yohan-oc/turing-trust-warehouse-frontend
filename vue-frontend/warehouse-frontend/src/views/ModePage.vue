@@ -1,11 +1,13 @@
 <script>
 export default {
   name: 'ModePage',
+  mounted() {
+    import('bootstrap');
+  }
 };
 </script>
 
 <template>
-  <div>
     <nav class="navbar navbar-dark px-4">
       <a class="navbar-brand" href="#">
         <img src="../assets/logo_new.png" alt="Turing Trust Logo" height="30">
@@ -105,13 +107,9 @@ export default {
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
-body {
-  background-color: #f0f2f5;
-}
 .navbar {
   background-color: #0b4c62;
 }

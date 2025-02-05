@@ -7,17 +7,19 @@ export default {
   },
   methods: {
     login() {
-      if (this.username) {
-        this.$router.push("/mode"); // Navigate to Home after login
-      } else {
-        alert("Please enter username");
-      }
+      // if (this.username) {
+      //   this.$router.push("/mode"); // Navigate to Home after login
+      // } else {
+      //   alert("Please enter username");
+      // }
+      this.$router.push("/mode");
     }
   }
 };
 </script>
 
 <template>
+  <div class="d-flex justify-content-center align-items-center vh-100">
   <div class="card shadow">
     <img src="../assets/logo.png" alt="Turing Trust Logo" class="logo">
     <p class="text-l">Welcome to the Turing Trust warehouse management application.</p>
@@ -30,14 +32,11 @@ export default {
 
     <button class="btn btn-primary w-100" @click="login">Continue</button>
   </div>
+</div>
 </template>
 
-<style>
-body {
-  background-color: #0b4c62; /* Dark blue background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+<style scoped>
+.vh-100 {
   height: 100vh;
 }
 .card {
@@ -49,12 +48,12 @@ body {
   border-bottom-color: #04A27D;
 }
 .btn-primary {
-  background-color: #04A27D !important;
-  border-color: #04A27D !important;
+  background-color: #04A27D;
+  border-color: #04A27D;
   border: none;
 }
 .btn-primary:hover {
-  background-color: #0a6b38;
+  background-color: #04A27D;
 }
 .logo {
   display: block;
