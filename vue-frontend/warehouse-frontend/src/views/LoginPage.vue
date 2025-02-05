@@ -49,7 +49,8 @@ body {
   border-bottom-color: #04A27D;
 }
 .btn-primary {
-  background-color: #04A27D; /* Green button */
+  background-color: #04A27D !important;
+  border-color: #04A27D !important;
   border: none;
 }
 .btn-primary:hover {
