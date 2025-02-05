@@ -11,25 +11,12 @@ export default {
       //alert(mode);
       localStorage.setItem('mode', mode);
       this.$router.push("/parent");
-    },
-    logout() {
-      localStorage.removeItem('isAuthenticated');
-      localStorage.removeItem('operatorName');
-      localStorage.removeItem('mode');
-      this.$router.push('/');
     }
   }
 };
 </script>
 
 <template>
-    <nav class="navbar navbar-dark px-4">
-      <a class="navbar-brand" href="#">
-        <img src="../assets/logo_new.png" alt="Turing Trust Logo" height="30">
-      </a>
-      <a class="logout" href="#" @click.prevent="logout"><i class="bi bi-box-arrow-left"></i> Log out</a>
-    </nav>
-
     <div class="container">
       <h4 class="section-title">Select a mode</h4>
       <p style="color: #075976;">Begin palleting or by selecting a mode below.</p>
@@ -125,17 +112,6 @@ export default {
 </template>
 
 <style scoped>
-.navbar {
-  background-color: #0b4c62;
-}
-.navbar-brand {
-  color: white;
-  font-weight: bold;
-}
-.logout {
-  color: white;
-  text-decoration: none;
-}
 .container {
   margin-top: 40px;
 }

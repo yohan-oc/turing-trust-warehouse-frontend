@@ -26,15 +26,8 @@ export default {
 </script>
 
 <template>
-  <nav class="navbar navbar-dark px-4">
-    <a class="navbar-brand" href="#">
-      <img src="../assets/logo_new.png" alt="Turing Trust Logo" height="30">
-    </a>
-    <a class="logout" href="#"><i class="bi bi-box-arrow-left"></i> Log out</a>
-  </nav>
 
   <div class="d-flex justify-content-center align-items-center vh-80 flex-column">
-    <!-- Heading Outside the Card, Aligned to the Left -->
     <p class="title">{{ mode }}</p>
 
     <!-- Card Container -->
@@ -60,17 +53,6 @@ export default {
 </template>
 
 <style scoped>
-.navbar {
-  background-color: #0b4c62;
-}
-.navbar-brand {
-  color: white;
-  font-weight: bold;
-}
-.logout {
-  color: white;
-  text-decoration: none;
-}
 .vh-80 {
   height: 80vh;
 }

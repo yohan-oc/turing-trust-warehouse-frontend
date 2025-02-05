@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import DefaultLayout from "../layout/DefaultLayout.vue";
 import LoginPage from "../views/LoginPage.vue";
 import HomePage from "../views/HomePage.vue";
 import ModePage from "../views/ModePage.vue";
@@ -7,10 +8,16 @@ import LocationPage from "../views/LocationPage.vue";
 
 const routes = [
     { path: "/", component: LoginPage },
-    { path: "/mode", component: ModePage, meta: { requiresAuth: true } },
-    { path: "/home", component: HomePage, meta: { requiresAuth: true } },
-    { path: "/parent", component: ParentPage, meta: { requiresAuth: true } },
-    { path: "/location", component: LocationPage, meta: { requiresAuth: true } }
+    {
+        path: "/",
+        component: DefaultLayout,
+        children: [
+            { path: "mode", component: ModePage, meta: { requiresAuth: true } },
+            { path: "home", component: HomePage, meta: { requiresAuth: true } },
+            { path: "parent", component: ParentPage, meta: { requiresAuth: true } },
+            { path: "location", component: LocationPage, meta: { requiresAuth: true } },
+        ],
+    },
 ];
 
 const router = createRouter({
