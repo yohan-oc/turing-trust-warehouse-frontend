@@ -19,7 +19,7 @@ export default {
       // } else {
       //   alert("Please enter username");
       // }
-      //this.$router.push("/parent");
+      this.$router.push("/transaction");
     },
   }
 };

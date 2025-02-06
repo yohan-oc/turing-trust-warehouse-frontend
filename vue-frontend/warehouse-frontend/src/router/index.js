@@ -5,6 +5,7 @@ import HomePage from "../views/HomePage.vue";
 import ModePage from "../views/ModePage.vue";
 import ParentPage from "../views/ParentPage.vue";
 import LocationPage from "../views/LocationPage.vue";
+import TransactionPage from "../views/TransactionPage.vue";
 
 const routes = [
     { path: "/", component: LoginPage },
@@ -16,6 +17,7 @@ const routes = [
             { path: "home", component: HomePage, meta: { requiresAuth: true } },
             { path: "parent", component: ParentPage, meta: { requiresAuth: true } },
             { path: "location", component: LocationPage, meta: { requiresAuth: true } },
+            { path: "transaction", component: TransactionPage, meta: { requiresAuth: true } },
         ],
     },
 ];
