@@ -31,7 +31,7 @@ export default {
     <div id="toastNotification" class="toast align-items-center text-white bg-warning border-0 show" role="alert">
         <div class="toast-header" style="color: #664D03">
           <i class="bi bi-exclamation-circle" style="padding-right: 5px;"></i> Cannot assign asset SB001234 to parent:<br>
-          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+          <button type="button" class="btn-close me-2 m-auto btn-toast" data-bs-dismiss="toast"></button>
         </div>
       <div class="toast-body d-flex justify-content-between align-items-center">
         <div>
@@ -234,6 +234,10 @@ thead {
 }
 .btn-grey{
   background-color: #6C757D;
+  color: #fff;
+}
+.btn-grey:hover {
+  background-color: gray;
   color: #fff;
 }
 </style>
