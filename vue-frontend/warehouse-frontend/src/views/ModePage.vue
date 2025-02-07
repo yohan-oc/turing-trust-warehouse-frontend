@@ -1,7 +1,36 @@
 <script>
 export default {
   name: 'ModePage',
+  data() {
+    return {
+      operationModes: [],
+      groupedModes: {},
+    }
+  },
+  mounted() {
+    this.fetchModes();
+  },
   methods: {
+    async fetchModes() {
+      try {
+        const response = await fetch(`/updates/modes.json`);
+        const data = await response.json();
+        //alert(data.operation_modes[0].name);
+        this.operationModes = data.operation_modes;
+        this.groupModesByCategory();
+      } catch (error) {
+        console.error("Error fetching modes:", error);
+      }
+    },
+    groupModesByCategory() {
+      this.groupedModes = this.operationModes.reduce((acc, mode) => {
+        if (!acc[mode.category]) {
+          acc[mode.category] = [];
+        }
+        acc[mode.category].push(mode);
+        return acc;
+      }, {});
+  },
     chooseMode(mode) {
       // if (this.username) {
       //   this.$router.push("/mode"); // Navigate to Home after login
@@ -28,14 +57,14 @@ export default {
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/work-in-progress.png" alt="Work in Progress" width="50" class="d-block mx-auto">
-            <br/><p>Work in progress palleting</p>
+            <p>Work in progress palleting</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Work in progress palleting')">Start →</button>
           </div>
         </div>
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/shipping-box.png" alt="Shipping Box" width="50" class="d-block mx-auto">
-            <br/><p>Shipping box palleting</p>
+            <p>Shipping box palleting</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Shipping box palleting')">Start →</button>
           </div>
         </div>
@@ -49,7 +78,7 @@ export default {
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/desktop.png" alt="Wiped Desktops" width="50" class="d-block mx-auto">
-            <br/><p>Boxing (Wiped) Desktops for shipping</p>
+            <p>Boxing (Wiped) Desktops for shipping</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Wiped) Desktops for shipping')">Start →</button>
           </div>
         </div>
@@ -57,7 +86,7 @@ export default {
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/desktop-imaged.png" alt="Imaged Desktops" width="50" class="d-block mx-auto">
-            <br/><p>Boxing (Imaged) Desktops for shipping</p>
+            <p>Boxing (Imaged) Desktops for shipping</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Imaged) Desktops for shipping')">Start →</button>
           </div>
         </div>
@@ -75,7 +104,7 @@ export default {
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/laptop-imaged.png" alt="Imaged Laptops" width="50" class="d-block mx-auto">
-            <br/><p>Boxing (Imaged) Laptops for shipping</p><br/>
+            <p>Boxing (Imaged) Laptops for shipping</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Imaged) Laptops for shipping')">Start →</button>
           </div>
         </div>
@@ -87,7 +116,7 @@ export default {
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/monitor.png" alt="Monitors" width="50" class="d-block mx-auto">
-            <br/><p>Boxing monitors for shipping</p><br/>
+            <p>Boxing monitors for shipping</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing monitors for shipping')">Start →</button>
           </div>
         </div>
@@ -95,7 +124,7 @@ export default {
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/phone.png" alt="Phones and Laptops" width="50" class="d-block mx-auto">
-            <br/><p>Boxing (Wiped) phones and laptops for shipping</p>
+            <p>Boxing (Wiped) phones and laptops for shipping</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing (Wiped) phones and laptops for shipping')">Start →</button>
           </div>
         </div>
@@ -103,7 +132,7 @@ export default {
         <div class="col-md-2">
           <div class="card">
             <img src="../assets/money.png" alt="For Sale" width="50" class="d-block mx-auto">
-            <br/><p>Boxing Desktops and Laptops for sale</p><br/>
+            <p>Boxing Desktops and Laptops for sale</p>
             <button class="btn btn-outline-success w-100" @click="chooseMode('Boxing Desktops and Laptops for sale')">Start →</button>
           </div>
         </div>
@@ -124,6 +153,13 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute space evenly between elements */
+  height: 100%; /* Allow the card to stretch */
+}
+.card img {
+  padding-bottom: 15px;
 }
 .btn-outline-success {
   border-color: #04A27D;
