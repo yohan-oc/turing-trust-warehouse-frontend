@@ -27,6 +27,22 @@ export default {
 
 <template>
 
+  <div class="toast-container">
+    <div id="toastNotification" class="toast align-items-center text-white bg-warning border-0 show" role="alert">
+        <div class="toast-header" style="color: #664D03">
+          <i class="bi bi-exclamation-circle" style="padding-right: 5px;"></i> Cannot assign asset SB001234 to parent:<br>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      <div class="toast-body d-flex justify-content-between align-items-center">
+        <div>
+          <span>Current asset status: <strong>Registered</strong></span><br>
+          <span>Expected status: <strong>Boxed for shipping</strong></span>
+        </div>
+        <button type="button" class="btn btn-grey btn-sm ms-3">Force</button>
+      </div>
+    </div>
+  </div>
+
   <div class="container content mt-4">
     <div class="mb-3" style="margin-top: 15px;">
       <h3 class="fw-bold" style="padding-bottom: 10px;">Work in progress palleting</h3>
@@ -205,6 +221,19 @@ thead {
 .btn-primary:hover {
   background-color: #04A27D;
   border-color: #04A27D;
+  color: #fff;
+}
+.toast-container {
+  top: 67px;  /* Move 20px from the top */
+  right: 30px; /* Move 30px from the right */
+  position: fixed;
+  z-index: 1050; /* Ensure it stays above other content */
+}
+.toast {
+  width: 450px !important;  /* Set fixed width */
+}
+.btn-grey{
+  background-color: #6C757D;
   color: #fff;
 }
 </style>
