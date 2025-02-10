@@ -16,8 +16,8 @@ const routes = [
             { path: "", component: ModePage /*, meta: { requiresAuth: true }*/ },
             { path: "home", component: HomePage /*, meta: { requiresAuth: true }*/ },
             { path: "parent", component: ParentPage /*, meta: { requiresAuth: true }*/ },
-            { path: "location", component: LocationPage /*, meta: { requiresAuth: true }*/ },
             { path: "transaction", component: TransactionPage /*, meta: { requiresAuth: true }*/ },
+            { path: "location", component: LocationPage /*, meta: { requiresAuth: true }*/ }
         ],
     },
 ];

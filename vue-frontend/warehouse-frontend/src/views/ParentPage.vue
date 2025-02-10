@@ -3,7 +3,9 @@ export default {
   data() {
     return {
       parentId: "",
-      mode: ""
+      mode: "",
+      isLoading: false,
+      errorMessage: ""
     };
   },
   mounted() {
@@ -13,16 +15,44 @@ export default {
     this.mode = localStorage.getItem("mode");
   },
   methods: {
-    scanParentId() {
+    async scanParentId() {
       // if (this.username) {
       //   this.$router.push("/mode"); // Navigate to Home after login
       // } else {
       //   alert("Please enter username");
       // }
-      this.$router.push("/location");
-    },
+      this.isLoading = true;
+      try {
+        const response = await fetch(`https://stevett.pythonanywhere.com/v1/lookup/parent/${this.parentId}?operation_mode=${this.mode}`);
+        const data = await response.json();
+
+        if (data.response_type === "OK") {
+          playSuccessSound();
+          this.$router.push("/transaction");
+        } else {
+          playErrorSound();
+          this.errorMessage = data.message;
+        }
+      } catch (error) {
+        console.error("API Error:", error);
+        alert("API Error:", error);
+      }
+      finally {
+        this.isLoading = false;
+      }
+    }
   }
 };
+
+function playErrorSound(){
+  const errorSound = new Audio(require('@/assets/sounds/error-sound.mp3'));
+  errorSound.play();
+}
+
+function playSuccessSound(){
+  const successSound = new Audio(require('@/assets/sounds/success-sound.mp3'));
+  successSound.play();
+}
 </script>
 
 <template>
@@ -41,13 +71,23 @@ export default {
 
       <div class="mb-3">
         <label for="parentId" class="form-label">Parent ID</label>
-        <input type="text" class="form-control" id="parentId" v-model="parentId" ref="parentId">
+        <input type="text" class="form-control" id="parentId" v-model="parentId" @keyup.enter="scanParentId"  ref="parentId">
       </div>
 
       <div class="form-group">
         <button class="btn btn-primary" @click="scanParentId" style="width: 237px; margin-right: 8px">Cancel</button>
-        <button class="btn btn-primary" @click="scanParentId" style="width: 237px">Continue</button>
+        <button class="btn btn-primary" @click="scanParentId" style="width: 237px">
+          <span v-if="isLoading" class="spinner-border spinner-border-sm"></span>
+          <span v-else>Continue</span>
+        </button>
       </div>
+
+      <div v-if="errorMessage" class="mt-3">
+        <p class="text-danger">
+          <i class="bi bi-exclamation-octagon-fill" style="padding-right: 5px;"></i> {{ errorMessage }}
+        </p>
+      </div>
+
     </div>
   </div>
 </template>
