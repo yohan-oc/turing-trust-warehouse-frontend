@@ -15,9 +15,9 @@ export default {
   name: "AppNavbar",
   methods: {
     logout() {
-      localStorage.removeItem('isAuthenticated');
-      localStorage.removeItem('operatorName');
-      localStorage.removeItem('mode');
+      // localStorage.removeItem('isAuthenticated');
+      // localStorage.removeItem('operatorName');
+      // localStorage.removeItem('mode');
       this.$router.push('/');
     },
   },
