@@ -1,20 +1,18 @@
 <script>
 import {API_BASE_URL} from "@/config";
-// import { Modal } from "bootstrap";
 
 export default {
   data() {
     return {
-      isModalVisible: true,
+      isModalVisible: false,
       parentId: "",
       mode: "",
       isParentScanning: false,
-      errorMessage: ""
+      errorMessage: "",
+      assetId: ""
     };
   },
   mounted() {
-    // this.modalInstance = new Modal(this.$refs.parentModal); // Initialize modal instance
-    // this.modalInstance.show();
     this.isModalVisible = true;
     this.$nextTick(() => {
       this.$refs.parentId.focus();
@@ -51,6 +49,11 @@ export default {
           playSuccessSound();
           //this.$router.push("/transaction");
           this.closeModal();
+
+          this.$nextTick(() => {
+            this.$refs.assetId.focus();
+          });
+
         } else {
           playErrorSound();
           if(data.message) {
@@ -133,114 +136,106 @@ function playSuccessSound(){
   <!-- Transactions  -->
   <div class="container content mt-4">
     <div class="mb-3" style="margin-top: 15px;">
-      <h3 class="fw-bold" style="padding-bottom: 10px;">Work in progress palleting</h3>
-      <hr class="my-2"> <!-- Adds a horizontal line with small top/bottom margin -->
-      <p style="margin-top: 20px; padding-bottom: 10px;">
-        <span class="" style="color: #075976;">Parent ID: </span>
-        <span class="text-dark">XXX123</span>
-        <span style="color: #CED4DA; padding-left: 15px; padding-right: 15px;">|</span>
-        <span class="" style="color: #075976;">Location: </span>
-        <span class="text-dark">LOC456</span>
-      </p>
+      <h2 class="" style="color: #075976">{{ mode }}</h2>
     </div>
 
     <!-- Transaction Table -->
-    <div class="card p-3 mt-3">
-      <h5 class="fw-bold">Transaction</h5>
-      <table class="table">  <!-- Removed 'table-striped' -->
-        <thead>
-        <tr>
-          <th>Transaction ID</th>
-          <th>Asset ID</th>
-          <th>Equipment</th>
-          <th>Notes</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>6</td>
-          <td>SB001234</td>
-          <td>-</td>
-          <td>
-            <div class="alert-warning">
-              Cannot assign asset to parent:<br>
-              Asset status: <strong>Registered</strong><br>
-              Expected status: <strong>Boxed for shipping</strong>
-            </div>
-          </td>
-          <td>
-            <div>
-              <br>
-              <button class="logout btn" style="color: #075976;">Force</button>
-            </div>
+    <div class="row" style="padding-bottom: 100px;">
+      <div class="col-md-9">
+        <div class="card p-3 mt-3">
+        <h4 style="color: #075976">Transactions</h4>
+        <div class="col-md-6" style="padding-bottom: 25px;">
+          <label for="assetId" class="form-label">Asset ID</label>
+          <div class="d-flex">
+            <input type="text" class="form-control" id="assetId" v-model="assetId" ref="assetId">
+            <button class="btn btn-secondary" @click="goBack" style="margin-left: 8px;">Add</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Asset ID</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td style="background-color: rgba(07, 59, 76, 0.05)">5</td>
+            <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321</td>
+            <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321 is already assigned to XXX123</td>
+            <td style="background-color: rgba(07, 59, 76, 0.05)"></td> </tr>
+          <tr>
+            <td>4</td>
+            <td>SB001243</td>
+            <td>SB001243 is already assigned to XXX123</td>
+            <td></td> </tr>
+          <tr>
+            <td>3</td>
+            <td>SB003412</td>
+            <td>SB003412 is already assigned to XXX123</td>
+            <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+        <div class="card p-3 mt-5">
+          <h4 style="color: #075976">Inventory List</h4>
+          <p style="padding-bottom: 5px;">Assets assigned to the parent will display below.</p>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Asset ID</th>
+              <th>Status</th>
+              <th>Make</th>
+              <th>Model</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321</td>
+              <td style="background-color: rgba(07, 59, 76, 0.05)">Boxed for shipping</td>
+              <td style="background-color: rgba(07, 59, 76, 0.05)">Acer</td>
+              <td style="background-color: rgba(07, 59, 76, 0.05)">0560X</td>
+            </tr>
+            <tr>
+              <td>SB001243</td>
+              <td>Boxed for shipping</td>
+              <td>Dell</td>
+              <td>Inspiron</td>
+            </tr>
+            <tr>
+              <td>SB003412</td>
+              <td>Boxed for shipping</td>
+              <td>Apple</td>
+              <td>Macbook Air</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-          </td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>SB004321</td>
-          <td>-</td>
-          <td>SB004321 is already assigned to XXX123</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>SB001243</td>
-          <td>-</td>
-          <td>SB001243 is already assigned to XXX123</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>SB003412</td>
-          <td>-</td>
-          <td>SB003412 is already assigned to XXX123</td>
-          <td></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="col-md-3">
+        <div class="card p-3 mt-3 card-summary">
+          <div class="parent-id">
+            <h6 style="color: #CED4DA">Parent ID</h6>
+            <h3>{{ parentId }}</h3>
+          </div>
+          <hr/>
+          <div class="transaction-errors">
+            <h6 style="color: #CED4DA">Transaction Errors</h6>
+            <h3>0</h3>
+          </div>
+          <hr/>
+          <div class="inventory-count">
+            <h6 style="color: #CED4DA">Inventory List Count</h6>
+            <h3>3</h3>
 
-    <!-- Inventory List -->
-    <div class="card p-3 mt-4">
-      <h5 class="d-flex justify-content-between">
-        <span>Inventory list</span>
-        <span style="color: #075976;">Inventory list count: <strong>3</strong></span>
-      </h5>
-      <table class="table">  <!-- Removed 'table-striped' -->
-        <thead>
-        <tr>
-          <th>Asset ID</th>
-          <th>Status</th>
-          <th>Make</th>
-          <th>Model</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>SB004321</td>
-          <td>Boxed for shipping</td>
-          <td>Acer</td>
-          <td>0560X</td>
-        </tr>
-        <tr>
-          <td>SB001243</td>
-          <td>Boxed for shipping</td>
-          <td>Dell</td>
-          <td>Inspiron</td>
-        </tr>
-        <tr>
-          <td>SB003412</td>
-          <td>Boxed for shipping</td>
-          <td>Apple</td>
-          <td>Macbook Air</td>
-        </tr>
-        </tbody>
-      </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
   <!-- Footer -->
   <div class="footer d-flex w-100">
     <div class="container d-flex justify-content-end">
@@ -255,10 +250,18 @@ function playSuccessSound(){
 
 <style scoped>
 
+* {
+  font-family: 'Barlow', sans-serif;
+}
 .modal-backdrop.fade {
   opacity: 0.80;
 }
-
+table{
+  font-size: 16px;
+}
+thead {
+  border-bottom: 2px solid #000;
+}
 .footer {
   position: fixed;
   bottom: 0;
@@ -281,6 +284,19 @@ function playSuccessSound(){
   border-color: #04A27D;
   color: #fff;
 }
+
+.btn-secondary{
+  border-color: #075976;
+  color: #075976;
+  background-color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #075976;
+  border-color: #075976;
+  color: #fff;
+}
+
 .logo {
   display: block;
   margin: 0 auto 15px;
@@ -292,6 +308,10 @@ function playSuccessSound(){
   font-size: 34px;
 }
 .card {
-  border-radius: 10px;
+  border-radius: 5px;
+}
+.card-summary{
+  background-color: #075976;
+  color: #fff;
 }
 </style>
