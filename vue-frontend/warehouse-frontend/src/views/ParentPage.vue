@@ -74,6 +74,10 @@ export default {
     goBack(){
       this.closeModal();
       this.$router.push("/");
+    },
+    endSession(){
+      localStorage.removeItem('mode');
+      this.$router.push("/");
     }
   }
 };
@@ -240,7 +244,7 @@ function playSuccessSound(){
   <div class="footer d-flex w-100">
     <div class="container d-flex justify-content-end">
 <!--      <button class="btn btn-primary me-2">Cancel</button>-->
-      <button class="btn btn-primary">Finish scanning</button>
+      <button class="btn btn-primary" @click="endSession">Finish scanning</button>
     </div>
   </div>
 
