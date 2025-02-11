@@ -1,4 +1,6 @@
 <script>
+import {API_BASE_URL} from "@/config";
+
 export default {
   data() {
     return {
@@ -23,7 +25,7 @@ export default {
       // }
       this.isLoading = true;
       try {
-        const response = await fetch(`https://stevett.pythonanywhere.com/v1/lookup/parent/${this.parentId}?operation_mode=${this.mode}`);
+        const response = await fetch(`${API_BASE_URL}/v1/lookup/parent/${this.parentId}?operation_mode=${this.mode}`);
         const data = await response.json();
 
         if (data.response_type === "OK") {

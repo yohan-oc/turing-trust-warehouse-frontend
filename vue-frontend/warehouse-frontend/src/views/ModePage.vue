@@ -1,4 +1,6 @@
 <script>
+import { API_BASE_URL } from "@/config";
+
 export default {
   name: 'ModePage',
   data() {
@@ -23,7 +25,7 @@ export default {
   methods: {
     async fetchModes() {
       try {
-        const response = await fetch(`/updates/modes.json`);
+        const response = await fetch(`${API_BASE_URL}/v2/getmodes`);
         const data = await response.json();
         this.operationModes = data.operation_modes;
       } catch (error) {
@@ -50,7 +52,7 @@ export default {
           </div>
           <div v-for="(mode, index) in modes" :key="mode.name" :class="['col-md-2', { 'offset-md-2': index !== 0 && index % 4 === 0 }]" style="padding-bottom: 25px;">
             <div class="card">
-              <img :src="require(`@/assets/${mode.imagePath || mode.image}`)" :alt="mode.name" width="50" class="d-block mx-auto">
+              <img :src="require(`@/assets/${mode.image_path || mode.image}`)" :alt="mode.name" width="50" class="d-block mx-auto">
               <p>{{ mode.name }}</p>
               <button class="btn btn-outline-success w-100" @click="chooseMode(mode.name)">Start →</button>
             </div>
