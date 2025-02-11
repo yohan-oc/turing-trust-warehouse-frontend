@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-    <div class="container">
+    <div class="container" v-if="operationModes.length > 0" >
       <h4 class="section-title">Select a mode</h4>
       <p style="color: #075976;">Begin palleting or by selecting a mode below.</p>
 
@@ -60,7 +60,12 @@ export default {
         </div>
       </div>
 
-    </div>
+  </div>
+
+  <div class="loading-screen" v-if="operationModes.length === 0" >
+    <div class="spinner"></div>
+    <h4>Loading, please wait...</h4>
+  </div>
 </template>
 
 <style scoped>
@@ -96,6 +101,30 @@ export default {
   border-bottom-width: 3px;
   border-bottom-color: #04A27D;
 }
+
+/* loading screen css*/
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ddd;
+  border-top: 5px solid #0b4c62;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 </style>
 
 <!--<template>-->

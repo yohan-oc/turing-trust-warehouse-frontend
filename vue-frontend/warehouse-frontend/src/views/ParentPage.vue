@@ -33,7 +33,12 @@ export default {
           this.$router.push("/transaction");
         } else {
           playErrorSound();
-          this.errorMessage = data.message;
+          if(data.message) {
+            this.errorMessage = data.message;
+          } else {
+            this.errorMessage = "Invalid scan detected";
+          }
+
         }
       } catch (error) {
         console.error("API Error:", error);
@@ -42,6 +47,9 @@ export default {
       finally {
         this.isLoading = false;
       }
+    },
+    goBack(){
+      this.$router.push("/");
     }
   }
 };
@@ -77,7 +85,7 @@ function playSuccessSound(){
       </div>
 
       <div class="form-group">
-        <button class="btn btn-primary" @click="scanParentId" style="width: 237px; margin-right: 8px">Cancel</button>
+        <button class="btn btn-primary" @click="goBack" style="width: 237px; margin-right: 8px">Cancel</button>
         <button class="btn btn-primary" @click="scanParentId" style="width: 237px">
           <span v-if="isLoading" class="spinner-border spinner-border-sm"></span>
           <span v-else>Continue</span>
