@@ -83,8 +83,8 @@ export default {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Distribute space evenly between elements */
-  height: 100%; /* Allow the card to stretch */
+  justify-content: space-between;
+  height: 100%;
 }
 .card img {
   padding-bottom: 15px;

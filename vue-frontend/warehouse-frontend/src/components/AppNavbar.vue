@@ -6,7 +6,7 @@
     <span class="navbar-brand">
       <img src="@/assets/logo_new.png" alt="Turing Trust Logo" height="30">
     </span>
-    <button class="logout btn btn-link text-white" @click="logout"><i class="bi bi-box-arrow-left" style="padding-right: 5px;"></i>Logout</button>
+<!--    <button class="logout btn btn-link text-white" @click="logout"><i class="bi bi-box-arrow-left" style="padding-right: 5px;"></i>Logout</button>-->
   </nav>
 </template>
 
@@ -18,7 +18,7 @@ export default {
       // localStorage.removeItem('isAuthenticated');
       // localStorage.removeItem('operatorName');
       // localStorage.removeItem('mode');
-      this.$router.push('/');
+      // this.$router.push('/');
     },
   },
 };

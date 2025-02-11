@@ -192,9 +192,7 @@ thead {
   flex: 1;
   padding-bottom: 60px;
 }
-.card {
-  border-radius: 10px;
-}
+
 .alert-warning {
   background-color: #fff3cd;
   color: #856404;
