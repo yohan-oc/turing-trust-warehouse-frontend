@@ -215,14 +215,14 @@ function playSuccessSound(){
             <th>Model</th>
           </tr>
           </thead>
-          <tbody>
-          <tr v-for="(item, index) in inventoryList" :key="item.Id">
-            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Name }}</td>
-            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Status }}</td>
-            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Make__c }}</td>
-            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Model__c }}</td>
-          </tr>
-          </tbody>
+            <transition-group name="fade" tag="tbody">
+              <tr v-for="(item, index) in inventoryList" :key="item.Id">
+                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Name }}</td>
+                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Status }}</td>
+                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Make__c }}</td>
+                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Model__c }}</td>
+              </tr>
+            </transition-group>
         </table>
       </div>
     </div>
@@ -262,9 +262,12 @@ function playSuccessSound(){
 
 
 <style scoped>
-
-* {
-  font-family: 'Barlow', sans-serif;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 .modal-backdrop.fade {
   opacity: 0.80;
