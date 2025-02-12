@@ -121,9 +121,13 @@ export default {
         this.transactionsList.unshift(transaction);
         if (transaction.response_type === "OK") {
           playSuccessSound();
-          const foundAsset = data.parent_data.child_assets.find(asset => asset.Name === transaction.assetId);
-          this.inventoryList.unshift(foundAsset);
-          localStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
+          const isAssetExist = this.inventoryList.find(asset => asset.Name === transaction.assetId);
+          if (!isAssetExist) {
+            const foundAsset = data.parent_data.child_assets.find(asset => asset.Name === transaction.assetId);
+            this.inventoryList.unshift(foundAsset);
+            localStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
+          }
+
         } else if (transaction.response_type === "Problem") {
           playErrorSound();
         } else if (transaction.response_type === "Verify") {
