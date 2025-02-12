@@ -153,6 +153,7 @@ export default {
       localStorage.removeItem('mode');
       localStorage.removeItem('parentId');
       localStorage.removeItem('inventoryList');
+      localStorage.removeItem('transactionsList');
       this.$router.push("/");
     }
   }
