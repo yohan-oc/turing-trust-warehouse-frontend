@@ -4,19 +4,39 @@ import {API_BASE_URL} from "@/config";
 export default {
   data() {
     return {
-      isModalVisible: false,
+      isModalVisible: true,
       parentId: "",
       mode: "",
       isParentScanning: false,
       errorMessage: "",
-      assetId: ""
+      assetId: "",
+      transactionErrorCount: 0,
+      inventoryList: []
     };
   },
   mounted() {
-    this.isModalVisible = true;
-    this.$nextTick(() => {
-      this.$refs.parentId.focus();
-    });
+
+    let inventoryListInDb = localStorage.getItem("inventoryList");
+
+    if(inventoryListInDb) {
+      this.inventoryList = JSON.parse(inventoryListInDb);
+    }
+
+    let parentIdInDb = localStorage.getItem("parentId");
+
+    if(parentIdInDb){
+      this.parentId = parentIdInDb;
+      this.isModalVisible = false;
+      this.$nextTick(() => {
+        this.$refs.assetId.focus();
+      });
+    }
+    else {
+      this.$nextTick(() => {
+        this.$refs.parentId.focus();
+      });
+    }
+
     this.mode = localStorage.getItem("mode");
   },
   methods: {
@@ -27,16 +47,6 @@ export default {
       });
     },
     closeModal() {
-      // this.modalInstance.hide(); // Closes the modal properly
-      //const backdrop = document.querySelector(".modal-backdrop");
-      // const modal = document.querySelector("#parentScanModal");
-      // // if (backdrop) {
-      // //   backdrop.remove();
-      // // }
-      // //
-      // if (modal) {
-      //   modal.remove();
-      // }
       this.isModalVisible = false;
     },
     async scanParentId() {
@@ -47,7 +57,11 @@ export default {
 
         if (data.response_type === "OK") {
           playSuccessSound();
-          //this.$router.push("/transaction");
+
+          this.inventoryList = data.asset_data.child_assets;
+
+          localStorage.setItem('parentId', this.parentId);
+          localStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
           this.closeModal();
 
           this.$nextTick(() => {
@@ -77,6 +91,8 @@ export default {
     },
     endSession(){
       localStorage.removeItem('mode');
+      localStorage.removeItem('parentId');
+      localStorage.removeItem('inventoryList');
       this.$router.push("/");
     }
   }
@@ -96,7 +112,7 @@ function playSuccessSound(){
 <template>
     <div>
       <!-- Button to Show Modal Again -->
-<!--      <button class="btn btn-primary" @click="showModal">Open Parent Scan</button>-->
+      <!-- <button class="btn btn-primary" @click="showModal">Open Parent Scan</button>-->
 
       <!-- Modal (Rendered Only When Needed) -->
       <div v-if="isModalVisible" class="modal fade show d-block" id="parentScanModal" aria-modal="true" role="dialog">
@@ -137,7 +153,7 @@ function playSuccessSound(){
       <div v-if="isModalVisible" class="modal-backdrop fade show"></div>
     </div>
 
-  <!-- Transactions  -->
+  <!-- Transactions & Inventory List -->
   <div class="container content mt-4">
     <div class="mb-3" style="margin-top: 15px;">
       <h2 class="" style="color: #075976">{{ mode }}</h2>
@@ -196,23 +212,11 @@ function playSuccessSound(){
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321</td>
-              <td style="background-color: rgba(07, 59, 76, 0.05)">Boxed for shipping</td>
-              <td style="background-color: rgba(07, 59, 76, 0.05)">Acer</td>
-              <td style="background-color: rgba(07, 59, 76, 0.05)">0560X</td>
-            </tr>
-            <tr>
-              <td>SB001243</td>
-              <td>Boxed for shipping</td>
-              <td>Dell</td>
-              <td>Inspiron</td>
-            </tr>
-            <tr>
-              <td>SB003412</td>
-              <td>Boxed for shipping</td>
-              <td>Apple</td>
-              <td>Macbook Air</td>
+            <tr v-for="(item, index) in inventoryList" :key="item.Id">
+              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Name }}</td>
+              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Status }}</td>
+              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Make__c }}</td>
+              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Model__c }}</td>
             </tr>
             </tbody>
           </table>
@@ -228,12 +232,12 @@ function playSuccessSound(){
           <hr/>
           <div class="transaction-errors">
             <h6 style="color: #CED4DA">Transaction Errors</h6>
-            <h3>0</h3>
+            <h3>{{ transactionErrorCount }}</h3>
           </div>
           <hr/>
           <div class="inventory-count">
             <h6 style="color: #CED4DA">Inventory List Count</h6>
-            <h3>3</h3>
+            <h3>{{ inventoryList.length }}</h3>
 
           </div>
         </div>

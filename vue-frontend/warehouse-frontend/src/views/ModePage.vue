@@ -9,6 +9,9 @@ export default {
     }
   },
   mounted() {
+    localStorage.removeItem('mode');
+    localStorage.removeItem('parentId');
+    localStorage.removeItem('inventoryList');
     this.fetchModes();
   },
   computed: {
