@@ -183,21 +183,22 @@ function playSuccessSound(){
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td style="background-color: rgba(07, 59, 76, 0.05)">5</td>
-            <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321</td>
-            <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321 is already assigned to XXX123</td>
-            <td style="background-color: rgba(07, 59, 76, 0.05)"></td> </tr>
-          <tr>
-            <td>4</td>
-            <td>SB001243</td>
-            <td>SB001243 is already assigned to XXX123</td>
-            <td></td> </tr>
-          <tr>
-            <td>3</td>
-            <td>SB003412</td>
-            <td>SB003412 is already assigned to XXX123</td>
-            <td></td> </tr>
+<!--          <tr>-->
+<!--            <td style="background-color: rgba(07, 59, 76, 0.05)">5</td>-->
+<!--            <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321</td>-->
+<!--            <td style="background-color: rgba(07, 59, 76, 0.05)">SB004321 is already assigned to XXX123</td>-->
+<!--            <td style="background-color: rgba(07, 59, 76, 0.05)"></td> </tr>-->
+<!--          <tr>-->
+<!--            <td>4</td>-->
+<!--            <td>SB001243</td>-->
+<!--            <td>SB001243 is already assigned to XXX123</td>-->
+<!--            <td></td> </tr>-->
+<!--          <tr>-->
+<!--            <td>3</td>-->
+<!--            <td>SB003412</td>-->
+<!--            <td>SB003412 is already assigned to XXX123</td>-->
+<!--            <td></td> -->
+<!--          </tr>-->
           </tbody>
         </table>
       </div>
