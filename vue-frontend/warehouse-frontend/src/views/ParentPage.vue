@@ -4,7 +4,7 @@ import {API_BASE_URL} from "@/config";
 export default {
   data() {
     return {
-      isModalVisible: true,
+      isParentScanModalVisible: true,
       parentId: "",
       mode: "",
       isParentScanning: false,
@@ -26,7 +26,7 @@ export default {
 
     if(parentIdInDb){
       this.parentId = parentIdInDb;
-      this.isModalVisible = false;
+      this.isParentScanModalVisible = false;
       this.$nextTick(() => {
         this.$refs.assetId.focus();
       });
@@ -47,7 +47,7 @@ export default {
       });
     },
     closeModal() {
-      this.isModalVisible = false;
+      this.isParentScanModalVisible = false;
     },
     async scanParentId() {
       this.isParentScanning = true;
@@ -110,48 +110,50 @@ function playSuccessSound(){
 </script>
 
 <template>
-    <div>
-      <!-- Button to Show Modal Again -->
-      <!-- <button class="btn btn-primary" @click="showModal">Open Parent Scan</button>-->
 
-      <!-- Modal (Rendered Only When Needed) -->
-      <div v-if="isModalVisible" class="modal fade show d-block" id="parentScanModal" aria-modal="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Scan parent</h5>
-            </div>
+  <!-- Scan parent modal -->
+  <div>
+    <!-- Button to Show Modal Again -->
+    <!-- <button class="btn btn-primary" @click="showModal">Open Parent Scan</button>-->
 
-            <div class="modal-body">
-                <img src="../assets/parent-scan.png" alt="Parent Id" class="logo">
-                <p class="text-muted">Scan the barcode or enter the ID of the pallet that you’ll be adding boxes to.</p>
+    <!-- Modal (Rendered Only When Needed) -->
+    <div v-if="isParentScanModalVisible" class="modal fade show d-block" id="parentScanModal" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Scan parent</h5>
+          </div>
 
-                <div class="mb-3">
-                  <label for="parentId" class="form-label">Parent ID</label>
-                  <input type="text" class="form-control" id="parentId" v-model="parentId" ref="parentId">
-                </div>
+          <div class="modal-body">
+              <img src="../assets/parent-scan.png" alt="Parent Id" class="logo">
+              <p class="text-muted">Scan the barcode or enter the ID of the pallet that you’ll be adding boxes to.</p>
 
-                <div class="form-group d-flex justify-content-end">
-                  <button class="btn btn-primary" @click="goBack" style="width: 100px; margin-right: 8px">Cancel</button>
-                  <button class="btn btn-primary" @click="scanParentId" style="width: 100px">
-                    <span v-if="isParentScanning" class="spinner-border spinner-border-sm"></span>
-                    <span v-else>Continue</span>
-                  </button>
-                </div>
+              <div class="mb-3">
+                <label for="parentId" class="form-label">Parent ID</label>
+                <input type="text" class="form-control" id="parentId" v-model="parentId" ref="parentId" @keyup.enter="scanParentId">
+              </div>
 
-                <div v-if="errorMessage" class="mt-3">
-                  <p class="text-danger">
-                    <i class="bi bi-exclamation-octagon-fill" style="padding-right: 5px;"></i> {{ errorMessage }}
-                  </p>
-                </div>
-            </div>
+              <div class="form-group d-flex justify-content-end">
+                <button class="btn btn-primary" @click="goBack" style="width: 100px; margin-right: 8px">Cancel</button>
+                <button class="btn btn-primary" @click="scanParentId" style="width: 100px">
+                  <span v-if="isParentScanning" class="spinner-border spinner-border-sm"></span>
+                  <span v-else>Continue</span>
+                </button>
+              </div>
+
+              <div v-if="errorMessage" class="mt-3">
+                <p class="text-danger">
+                  <i class="bi bi-exclamation-octagon-fill" style="padding-right: 5px;"></i> {{ errorMessage }}
+                </p>
+              </div>
           </div>
         </div>
       </div>
-
-      <!-- Modal Backdrop (Controlled by Vue) -->
-      <div v-if="isModalVisible" class="modal-backdrop fade show"></div>
     </div>
+
+    <!-- Modal Backdrop (Controlled by Vue) -->
+    <div v-if="isParentScanModalVisible" class="modal-backdrop fade show"></div>
+  </div>
 
   <!-- Transactions & Inventory List -->
   <div class="container content mt-4">
@@ -159,8 +161,8 @@ function playSuccessSound(){
       <h2 class="" style="color: #075976">{{ mode }}</h2>
     </div>
 
-    <!-- Transaction Table -->
     <div class="row" style="padding-bottom: 100px;">
+      <!-- Transactions -->
       <div class="col-md-9">
         <div class="card p-3 mt-3">
         <h4 style="color: #075976">Transactions</h4>
@@ -199,55 +201,58 @@ function playSuccessSound(){
           </tbody>
         </table>
       </div>
-        <div class="card p-3 mt-5">
-          <h4 style="color: #075976">Inventory List</h4>
-          <p style="padding-bottom: 5px;">Assets assigned to the parent will display below.</p>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Asset ID</th>
-              <th>Status</th>
-              <th>Make</th>
-              <th>Model</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in inventoryList" :key="item.Id">
-              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Name }}</td>
-              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Status }}</td>
-              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Make__c }}</td>
-              <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Model__c }}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
+
+      <!-- Inventory List -->
+      <div class="card p-3 mt-5">
+        <h4 style="color: #075976">Inventory List</h4>
+        <p style="padding-bottom: 5px;">Assets assigned to the parent will display below.</p>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Asset ID</th>
+            <th>Status</th>
+            <th>Make</th>
+            <th>Model</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(item, index) in inventoryList" :key="item.Id">
+            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Name }}</td>
+            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Status }}</td>
+            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Make__c }}</td>
+            <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">{{ item.Model__c }}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <div class="col-md-3">
-        <div class="card p-3 mt-3 card-summary">
-          <div class="parent-id">
-            <h6 style="color: #CED4DA">Parent ID</h6>
-            <h3>{{ parentId }}</h3>
-          </div>
-          <hr/>
-          <div class="transaction-errors">
-            <h6 style="color: #CED4DA">Transaction Errors</h6>
-            <h3>{{ transactionErrorCount }}</h3>
-          </div>
-          <hr/>
-          <div class="inventory-count">
-            <h6 style="color: #CED4DA">Inventory List Count</h6>
-            <h3>{{ inventoryList.length }}</h3>
+    <div class="col-md-3">
+      <div class="card p-3 mt-3 card-summary">
+        <div class="parent-id">
+          <h6 style="color: #CED4DA">Parent ID</h6>
+          <h3>{{ parentId }}</h3>
+        </div>
+        <hr/>
+        <div class="transaction-errors">
+          <h6 style="color: #CED4DA">Transaction Errors</h6>
+          <h3>{{ transactionErrorCount }}</h3>
+        </div>
+        <hr/>
+        <div class="inventory-count">
+          <h6 style="color: #CED4DA">Inventory List Count</h6>
+          <h3>{{ inventoryList.length }}</h3>
 
-          </div>
         </div>
       </div>
     </div>
+    </div>
   </div>
+
   <!-- Footer -->
   <div class="footer d-flex w-100">
     <div class="container d-flex justify-content-end">
-<!--      <button class="btn btn-primary me-2">Cancel</button>-->
+      <!-- <button class="btn btn-primary me-2">Cancel</button>-->
       <button class="btn btn-primary" @click="endSession">Finish scanning</button>
     </div>
   </div>
