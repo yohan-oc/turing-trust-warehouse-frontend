@@ -17,5 +17,11 @@ module.exports = defineConfig({
         pathRewrite: { '^/v2': '/v2' }
       }
     },
+  },
+  chainWebpack: config => {
+    config.plugin('html').tap(args => {
+      args[0].title = 'Turing Trust - Warehouse Manager';
+      return args;
+    });
   }
 })
