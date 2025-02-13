@@ -100,6 +100,11 @@ export default {
       }
     },
     async scanAsset() {
+      // validating input
+      if(!this.assetId){
+        return;
+      }
+
       this.isAssetScanning = true;
       try {
         let url = `${API_BASE_URL}/v1/parent/add/${this.assetId}?parentid=${this.parentId}&reference=${API_REFERENCE}&operation_mode=${this.mode}&operator_name=${OPERATOR_NAME}&force=false`
@@ -115,7 +120,8 @@ export default {
           "Status": data.asset_data.Status,
           "message": data.message,
           "response_type": data.response_type,
-          "transaction_id": data.transaction_id
+          "transaction_id": data.transaction_id,
+          "isForcing": false
         }
 
         this.transactionsList.unshift(transaction);
@@ -140,6 +146,41 @@ export default {
       } finally {
         this.isAssetScanning = false;
         this.assetId = "";
+      }
+    },
+    async forceAsset(forcedAsset) {
+      forcedAsset.isForcing = true;
+
+      try {
+        let url = `${API_BASE_URL}/v1/parent/add/${forcedAsset.assetId}?parentid=${this.parentId}&reference=${API_REFERENCE}&operation_mode=${this.mode}&operator_name=${OPERATOR_NAME}&force=true`
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        forcedAsset.message = data.message;
+        forcedAsset.response_type = data.response_type;
+        forcedAsset.transaction_id = data.transaction_id;
+
+        if (forcedAsset.response_type === "OK") {
+          playSuccessSound();
+          const isAssetExist = this.inventoryList.find(asset => asset.Name === forcedAsset.assetId);
+          if (!isAssetExist) {
+            const foundAsset = data.parent_data.child_assets.find(asset => asset.Name === forcedAsset.assetId);
+            this.inventoryList.unshift(foundAsset);
+            localStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
+          }
+
+        } else if (forcedAsset.response_type === "Problem") {
+          playErrorSound();
+        } else if (forcedAsset.response_type === "Verify") {
+          playErrorSound();
+        }
+
+        localStorage.setItem('transactionsList', JSON.stringify(this.transactionsList));
+      } catch (error) {
+        console.error("API Error:", error);
+      } finally {
+        forcedAsset.isForcing = false;
       }
     },
     getStatusClass(type) {
@@ -227,8 +268,8 @@ export default {
             <label for="assetId" class="form-label">Asset ID</label>
             <div class="d-flex">
               <input type="text" class="form-control" id="assetId" v-model="assetId" ref="assetId"
-                     @keyup.enter="scanAsset">
-              <button class="btn btn-secondary" @click="scanAsset" style="margin-left: 8px;">
+                     @keyup.enter="scanAsset" style="width: 460px;">
+              <button class="btn btn-secondary" @click="scanAsset" style="margin-left: 8px; width: 60px; height: 38px;">
                 <span v-if="isAssetScanning" class="spinner-border spinner-border-sm"></span>
                 <span v-else>Add</span>
               </button>
@@ -257,7 +298,11 @@ export default {
                   </div>
                 </td>
                 <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">
-
+                  <button v-if="item.response_type === 'Verify'" class="btn btn-secondary"
+                          style="min-width: 66px;" @click="forceAsset(item)">
+                    <span v-if="item.isForcing" class="spinner-border spinner-border-sm"></span>
+                    <span v-else>Force</span>
+                  </button>
                 </td>
               </tr>
             </transition-group>
@@ -332,6 +377,12 @@ export default {
 
 
 <style scoped>
+.force {
+  color: white;
+  text-decoration: none;
+  border: 0 none;
+}
+
 
 .alert-warning {
   border-radius: 5px;
