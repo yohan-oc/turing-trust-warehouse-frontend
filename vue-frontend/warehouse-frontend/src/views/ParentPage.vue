@@ -146,6 +146,9 @@ export default {
       } finally {
         this.isAssetScanning = false;
         this.assetId = "";
+        this.$nextTick(() => {
+          this.$refs.assetId.focus();
+        });
       }
     },
     async forceAsset(forcedAsset) {
@@ -181,6 +184,9 @@ export default {
         console.error("API Error:", error);
       } finally {
         forcedAsset.isForcing = false;
+        this.$nextTick(() => {
+          this.$refs.assetId.focus();
+        });
       }
     },
     getStatusClass(type) {
