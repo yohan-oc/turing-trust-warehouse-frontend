@@ -381,6 +381,11 @@ export default {
               </tr>
             </transition-group>
           </table>
+
+          <div style="text-align: center" v-if="transactionsList.length === 0">
+            <p style="padding-bottom: 5px; padding-top: 10px">Scan an asset to get started</p>
+            <hr/>
+          </div>
         </div>
 
         <!-- Inventory List -->
@@ -413,6 +418,11 @@ export default {
               </tr>
             </transition-group>
           </table>
+
+          <div style="text-align: center" v-if="inventoryList.length === 0">
+            <p style="padding-bottom: 5px; padding-top: 10px">Scan an asset to get started</p>
+            <hr/>
+          </div>
         </div>
       </div>
 
