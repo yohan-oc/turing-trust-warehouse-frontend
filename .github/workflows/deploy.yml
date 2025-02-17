@@ -1,0 +1,39 @@
+name: Warehouse App - New
+
+on:
+  push:
+    branches:
+      - navigation-poc  # Runs only on the navigation-poc branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          cd vue-frontend/warehouse-frontend
+          npm install
+
+      - name: Build project
+        run: |
+          cd vue-frontend/warehouse-frontend
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GH_PAT }}
+          publish_branch: gh-pages
+          publish_dir: vue-frontend/warehouse-frontend/dist  # Updated path
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"

@@ -1,0 +1,87 @@
+<script>
+export default {
+  data() {
+    return {
+      locationId: "",
+      mode:""
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.locationId.focus();
+    });
+    this.mode = localStorage.getItem("mode");
+  },
+  methods: {
+    scanLocationId() {
+      // if (this.username) {
+      //   this.$router.push("/mode"); // Navigate to Home after login
+      // } else {
+      //   alert("Please enter username");
+      // }
+      this.$router.push("/transaction");
+    },
+  }
+};
+</script>
+
+<template>
+
+  <div class="d-flex justify-content-center align-items-center vh-80 flex-column">
+    <p class="title">{{ mode }}</p>
+
+    <!-- Card Container -->
+    <div class="card shadow">
+      <img src="../assets/location-scan.png" alt="Parent Id" class="logo">
+      <p class="text-l"><b>Scan location</b></p>
+      <p class="text-muted">
+        Scan the barcode or enter the ID of the location where the pallet
+        will be stored.
+      </p>
+
+      <div class="mb-3">
+        <label for="parentId" class="form-label">Location ID</label>
+        <input type="text" class="form-control" id="parentId" v-model="locationId" ref="locationId">
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary" @click="scanLocationId" style="width: 237px; margin-right: 8px">Cancel</button>
+        <button class="btn btn-primary" @click="scanLocationId" style="width: 237px">Continue</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.vh-80 {
+  height: 80vh;
+}
+.card {
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 546px;
+  width: 100%;
+  border-bottom-width: 3px;
+  border-bottom-color: #04A27D;
+}
+.btn-primary {
+  border-color: #04A27D;
+  color: #04A27D;
+  background-color: #fff;
+}
+.btn-primary:hover {
+  background-color: #04A27D;
+  border-color: #04A27D;
+  color: #fff;
+}
+.logo {
+  display: block;
+  margin: 0 auto 15px;
+  width: 150px;
+}
+.title{
+  /*margin-left: -168px;*/
+  color: #075976;
+  font-size: 34px;
+}
+</style>
