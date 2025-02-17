@@ -53,8 +53,37 @@ export default {
     }
 
     this.mode = localStorage.getItem("mode");
+
+    document.addEventListener("click", this.ensureFocus);
+  },
+  beforeUnmount() {
+    document.removeEventListener("click", this.ensureFocus);
   },
   methods: {
+    ensureFocus(event) {
+      const input = this.$refs.assetId;
+
+      // Ignore focus enforcement if modal is open
+      if (this.isParentScanModalVisible) {
+        return;
+      }
+
+      // Ignore button clicks (prevent refocusing when clicking buttons)
+      if (event.target.tagName === "BUTTON") {
+        return;
+      }
+
+      // Allow user to select text
+      //if (window.getSelection().toString().length > 0) return;
+
+      // Allow clicking inside input fields without refocusing
+      //if (event.target.tagName === "INPUT" || event.target.isContentEditable) return;
+
+      // Refocus if input is not already active
+      if (document.activeElement !== input && input) {
+        input.focus();
+      }
+    },
     showModal() {
       this.isModalVisible = true; // Show the modal again
       this.$nextTick(() => {
@@ -201,10 +230,13 @@ export default {
       this.$router.push("/");
     },
     endSession() {
+      // Remove event listener before component is destroyed
+      document.removeEventListener("click", this.ensureFocus);
       localStorage.removeItem('mode');
       localStorage.removeItem('parentId');
       localStorage.removeItem('inventoryList');
       localStorage.removeItem('transactionsList');
+
       this.$router.push("/");
     }
   }
@@ -274,7 +306,7 @@ export default {
             <label for="assetId" class="form-label">Asset ID</label>
             <div class="d-flex">
               <input type="text" class="form-control" id="assetId" v-model="assetId" ref="assetId"
-                     @keyup.enter="scanAsset" style="width: 460px;">
+                     @keyup.enter="scanAsset" @blur="ensureFocus" style="width: 460px;">
               <button class="btn btn-secondary" @click="scanAsset" style="margin-left: 8px; width: 60px; height: 38px;">
                 <span v-if="isAssetScanning" class="spinner-border spinner-border-sm"></span>
                 <span v-else>Add</span>
