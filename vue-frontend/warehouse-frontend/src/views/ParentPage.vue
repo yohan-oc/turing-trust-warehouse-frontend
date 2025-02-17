@@ -225,6 +225,20 @@ export default {
         OK: "ok-status"
       }[type] || "";
     },
+    getTableTd(type) {
+      return {
+        Verify: "verify-td",
+        Problem: "problem-td",
+        OK: "ok-td"
+      }[type] || "";
+    },
+    getTable1Td(type) {
+      return {
+        Verify: "verify-1td",
+        Problem: "problem-1td",
+        OK: "ok-1td"
+      }[type] || "";
+    },
     goBack() {
       this.closeModal();
       this.$router.push("/");
@@ -323,6 +337,28 @@ export default {
             </tr>
             </thead>
             <transition-group name="fade" tag="tbody">
+
+              <!-- New UI Design -->
+<!--              <tr v-for="(item) in transactionsList" :key="item.id">-->
+<!--                <td :class="[getTable1Td(item.response_type)]">-->
+<!--                  {{ item.id }}-->
+<!--                </td>-->
+<!--                <td :class="[getTableTd(item.response_type)]">-->
+<!--                  {{ item.assetId }}-->
+<!--                </td>-->
+<!--                <td :class="[getTableTd(item.response_type)]">-->
+<!--                    {{ item.message }}-->
+<!--                </td>-->
+<!--                <td :class="[getTableTd(item.response_type)]">-->
+<!--                  <button v-if="item.response_type === 'Verify'" class="btn btn-secondary"-->
+<!--                          style="min-width: 66px;" @click="forceAsset(item)">-->
+<!--                    <span v-if="item.isForcing" class="spinner-border spinner-border-sm"></span>-->
+<!--                    <span v-else>Force</span>-->
+<!--                  </button>-->
+<!--                </td>-->
+<!--              </tr>-->
+
+
               <tr v-for="(item, index) in transactionsList" :key="item.id">
                 <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">
                   {{ item.id }}
@@ -533,5 +569,27 @@ thead {
 .card-summary {
   background-color: #075976;
   color: #fff;
+}
+
+.verify-1td {
+  background: rgba(255, 193, 7, 0.2);
+  border-left: 2px solid rgba(255, 193, 7, 1);
+}
+.problem-1td {
+  background: rgba(220, 53, 69, 0.2);
+  border-left: 2px solid rgba(220, 53, 69, 1);
+}
+.ok-1td {
+  background: rgba(25, 135, 84, 0.2);
+  border-left: 2px solid rgba(25, 135, 84, 1);
+}
+.verify-td {
+  background: rgba(255, 193, 7, 0.2);
+}
+.problem-td {
+  background: rgba(220, 53, 69, 0.2);
+}
+.ok-td {
+  background: rgba(25, 135, 84, 0.2);
 }
 </style>
