@@ -21,15 +21,15 @@ export default {
 <template>
 
   <div class="container">
-    <h4 class="section-title">Select a mode</h4>
-    <p style="color: #075976;">Begin palleting or by selecting a mode below.</p>
+    <h4 class="section-title">Select a flow</h4>
+    <p style="color: #075976;">Begin packing or moving assets by selecting a flow below.</p>
 
     <div class="row" style="padding-top: 15px;">
       <div class="col-md-4">
         <div class="card" @click="navigateToModePage">
           <div class="d-flex align-items-start">
-            <img src="../assets/palleting-and-shipping.png" alt="Work in Progress" width="50" class="me-3">
-            <span style="font-size: 28px">Work in progress palleting</span>
+            <img src="../assets/packing.png" alt="Packing" width="50" class="me-3">
+            <span style="font-size: 28px">Packing</span>
           </div>
           <button class="arrow">
             <img src="../assets/flow-arrow.png" alt="Arrow" width="50" height="50">
@@ -40,7 +40,7 @@ export default {
       <div class="col-md-4">
         <div class="card" @click="navigateToMoveAssetPage">
           <div class="d-flex align-items-start">
-            <img src="../assets/moving-location.png" alt="Work in Progress" width="50" class="me-3">
+            <img src="../assets/moving-location.png" alt="Moving Assets" width="50" class="me-3">
             <span style="font-size: 28px">Moving assets</span>
           </div>
           <button class="arrow">
