@@ -26,19 +26,19 @@ export default {
   },
   mounted() {
 
-    let inventoryListInDb = localStorage.getItem("inventoryList");
+    let inventoryListInDb = sessionStorage.getItem("inventoryList");
 
     if (inventoryListInDb) {
       this.inventoryList = JSON.parse(inventoryListInDb);
     }
 
-    let transactionsListInDb = localStorage.getItem("transactionsList");
+    let transactionsListInDb = sessionStorage.getItem("transactionsList");
 
     if (transactionsListInDb) {
       this.transactionsList = JSON.parse(transactionsListInDb);
     }
 
-    let parentIdInDb = localStorage.getItem("parentId");
+    let parentIdInDb = sessionStorage.getItem("parentId");
 
     if (parentIdInDb) {
       this.parentId = parentIdInDb;
@@ -52,7 +52,7 @@ export default {
       });
     }
 
-    this.mode = localStorage.getItem("mode");
+    this.mode = sessionStorage.getItem("mode");
 
     document.addEventListener("click", this.ensureFocus);
   },
@@ -105,8 +105,8 @@ export default {
 
           this.inventoryList = data.asset_data.child_assets;
 
-          localStorage.setItem('parentId', this.parentId);
-          localStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
+          sessionStorage.setItem('parentId', this.parentId);
+          sessionStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
           this.closeModal();
 
           this.$nextTick(() => {
@@ -160,7 +160,7 @@ export default {
           if (!isAssetExist) {
             const foundAsset = data.parent_data.child_assets.find(asset => asset.Name === transaction.assetId);
             this.inventoryList.unshift(foundAsset);
-            localStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
+            sessionStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
           }
 
         } else if (transaction.response_type === "Problem") {
@@ -169,7 +169,7 @@ export default {
           playErrorSound();
         }
 
-        localStorage.setItem('transactionsList', JSON.stringify(this.transactionsList));
+        sessionStorage.setItem('transactionsList', JSON.stringify(this.transactionsList));
       } catch (error) {
         console.error("API Error:", error);
       } finally {
@@ -199,7 +199,7 @@ export default {
           if (!isAssetExist) {
             const foundAsset = data.parent_data.child_assets.find(asset => asset.Name === forcedAsset.assetId);
             this.inventoryList.unshift(foundAsset);
-            localStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
+            sessionStorage.setItem('inventoryList', JSON.stringify(this.inventoryList));
           }
 
         } else if (forcedAsset.response_type === "Problem") {
@@ -208,7 +208,7 @@ export default {
           playErrorSound();
         }
 
-        localStorage.setItem('transactionsList', JSON.stringify(this.transactionsList));
+        sessionStorage.setItem('transactionsList', JSON.stringify(this.transactionsList));
       } catch (error) {
         console.error("API Error:", error);
       } finally {
@@ -246,10 +246,10 @@ export default {
     endSession() {
       // Remove event listener before component is destroyed
       document.removeEventListener("click", this.ensureFocus);
-      localStorage.removeItem('mode');
-      localStorage.removeItem('parentId');
-      localStorage.removeItem('inventoryList');
-      localStorage.removeItem('transactionsList');
+      sessionStorage.removeItem('mode');
+      sessionStorage.removeItem('parentId');
+      sessionStorage.removeItem('inventoryList');
+      sessionStorage.removeItem('transactionsList');
 
       this.$router.push("/");
     }

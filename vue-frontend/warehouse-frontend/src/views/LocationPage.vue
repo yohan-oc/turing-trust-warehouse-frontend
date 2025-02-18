@@ -10,7 +10,7 @@ export default {
     this.$nextTick(() => {
       this.$refs.locationId.focus();
     });
-    this.mode = localStorage.getItem("mode");
+    this.mode = sessionStorage.getItem("mode");
   },
   methods: {
     scanLocationId() {

@@ -9,10 +9,10 @@ export default {
     }
   },
   mounted() {
-    localStorage.removeItem('mode');
-    localStorage.removeItem('parentId');
-    localStorage.removeItem('inventoryList');
-    localStorage.removeItem('transactionsList');
+    sessionStorage.removeItem('mode');
+    sessionStorage.removeItem('parentId');
+    sessionStorage.removeItem('inventoryList');
+    sessionStorage.removeItem('transactionsList');
     this.fetchModes();
   },
   computed: {
@@ -37,7 +37,7 @@ export default {
       }
     },
     chooseMode(mode) {
-      localStorage.setItem('mode', mode);
+      sessionStorage.setItem('mode', mode);
       this.$router.push("/parent");
     }
   }

@@ -13,8 +13,8 @@ export default {
   methods: {
     login() {
       if (this.username) {
-        localStorage.setItem('isAuthenticated', "true");
-        localStorage.setItem('operatorName', this.username);
+        sessionStorage.setItem('isAuthenticated', "true");
+        sessionStorage.setItem('operatorName', this.username);
         this.$router.push("/mode");
       } else {
         alert("Please enter username");

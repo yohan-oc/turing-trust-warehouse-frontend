@@ -10,7 +10,7 @@ export default {
     // this.$nextTick(() => {
     //   this.$refs.parentId.focus();
     // });
-    // this.mode = localStorage.getItem("mode");
+    // this.mode = sessionStorage.getItem("mode");
   },
   methods: {
     // scanAssetId() {
