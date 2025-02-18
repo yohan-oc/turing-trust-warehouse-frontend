@@ -7,6 +7,7 @@ import PackingPage from "../views/PackingPage.vue";
 import LocationPage from "../views/LocationPage.vue";
 import TransactionPage from "../views/TransactionPage.vue";
 import MoveAssetsPage from "../views/MoveAssetsPage.vue";
+import PackingCompletePage from "../views/PackingCompletePage.vue";
 
 const routes = [
     // { path: "/", component: LoginPage },
@@ -19,7 +20,8 @@ const routes = [
             { path: "packing", component: PackingPage /*, meta: { requiresAuth: true }*/ },
             { path: "transaction", component: TransactionPage /*, meta: { requiresAuth: true }*/ },
             { path: "location", component: LocationPage /*, meta: { requiresAuth: true }*/ },
-            { path: "move-assets", component: MoveAssetsPage /*, meta: { requiresAuth: true }*/ }
+            { path: "move-assets", component: MoveAssetsPage /*, meta: { requiresAuth: true }*/ },
+            { path: "packing-complete", component: PackingCompletePage /*, meta: { requiresAuth: true }*/ }
         ],
     },
 ];
