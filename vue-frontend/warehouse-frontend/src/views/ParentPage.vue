@@ -339,39 +339,17 @@ export default {
             <transition-group name="fade" tag="tbody">
 
               <!-- New UI Design -->
-<!--              <tr v-for="(item) in transactionsList" :key="item.id">-->
-<!--                <td :class="[getTable1Td(item.response_type)]">-->
-<!--                  {{ item.id }}-->
-<!--                </td>-->
-<!--                <td :class="[getTableTd(item.response_type)]">-->
-<!--                  {{ item.assetId }}-->
-<!--                </td>-->
-<!--                <td :class="[getTableTd(item.response_type)]">-->
-<!--                    {{ item.message }}-->
-<!--                </td>-->
-<!--                <td :class="[getTableTd(item.response_type)]">-->
-<!--                  <button v-if="item.response_type === 'Verify'" class="btn btn-secondary"-->
-<!--                          style="min-width: 66px;" @click="forceAsset(item)">-->
-<!--                    <span v-if="item.isForcing" class="spinner-border spinner-border-sm"></span>-->
-<!--                    <span v-else>Force</span>-->
-<!--                  </button>-->
-<!--                </td>-->
-<!--              </tr>-->
-
-
-              <tr v-for="(item, index) in transactionsList" :key="item.id">
-                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">
+              <tr v-for="(item) in transactionsList" :key="item.id">
+                <td :class="[getTable1Td(item.response_type)]">
                   {{ item.id }}
                 </td>
-                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">
+                <td :class="[getTableTd(item.response_type)]">
                   {{ item.assetId }}
                 </td>
-                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">
-                  <div :class="['alert-warning', getStatusClass(item.response_type)]">
+                <td :class="[getTableTd(item.response_type)]">
                     {{ item.message }}
-                  </div>
                 </td>
-                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">
+                <td :class="[getTableTd(item.response_type)]">
                   <button v-if="item.response_type === 'Verify'" class="btn btn-secondary"
                           style="min-width: 66px;" @click="forceAsset(item)">
                     <span v-if="item.isForcing" class="spinner-border spinner-border-sm"></span>
@@ -379,6 +357,28 @@ export default {
                   </button>
                 </td>
               </tr>
+
+              <!-- Old UI Design -->
+<!--              <tr v-for="(item, index) in transactionsList" :key="item.id">-->
+<!--                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">-->
+<!--                  {{ item.id }}-->
+<!--                </td>-->
+<!--                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">-->
+<!--                  {{ item.assetId }}-->
+<!--                </td>-->
+<!--                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">-->
+<!--                  <div :class="['alert-warning', getStatusClass(item.response_type)]">-->
+<!--                    {{ item.message }}-->
+<!--                  </div>-->
+<!--                </td>-->
+<!--                <td :style="{ backgroundColor: index === 0 ? 'rgba(07, 59, 76, 0.05)' : 'transparent' }">-->
+<!--                  <button v-if="item.response_type === 'Verify'" class="btn btn-secondary"-->
+<!--                          style="min-width: 66px;" @click="forceAsset(item)">-->
+<!--                    <span v-if="item.isForcing" class="spinner-border spinner-border-sm"></span>-->
+<!--                    <span v-else>Force</span>-->
+<!--                  </button>-->
+<!--                </td>-->
+<!--              </tr>-->
             </transition-group>
           </table>
 
