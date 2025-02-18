@@ -250,7 +250,7 @@ export default {
     },
     goBack() {
       this.closeModal();
-      this.$router.push("/");
+      this.$router.push("/mode");
     },
     endSession() {
       // Remove event listener before component is destroyed

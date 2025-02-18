@@ -38,7 +38,7 @@ export default {
     },
     chooseMode(mode) {
       sessionStorage.setItem('mode', mode);
-      this.$router.push("/parent");
+      this.$router.push("/packing");
     }
   }
 };

@@ -12,7 +12,7 @@ export default {
       this.$router.push("/mode");
     },
     navigateToMoveAssetPage(){
-      this.$router.push("/moveAsset");
+      this.$router.push("/move-assets");
     }
   },
 };

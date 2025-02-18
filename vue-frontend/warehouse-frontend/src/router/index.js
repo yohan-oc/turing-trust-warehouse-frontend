@@ -3,10 +3,10 @@ import DefaultLayout from "../layout/DefaultLayout.vue";
 //import LoginPage from "../views/LoginPage.vue";
 import HomePage from "../views/HomePage.vue";
 import ModePage from "../views/ModePage.vue";
-import ParentPage from "../views/ParentPage.vue";
+import PackingPage from "../views/PackingPage.vue";
 import LocationPage from "../views/LocationPage.vue";
 import TransactionPage from "../views/TransactionPage.vue";
-import MoveAssetPage from "../views/MoveAssetPage.vue";
+import MoveAssetsPage from "../views/MoveAssetsPage.vue";
 
 const routes = [
     // { path: "/", component: LoginPage },
@@ -16,10 +16,10 @@ const routes = [
         children: [
             { path: "", component: HomePage /*, meta: { requiresAuth: true }*/ },
             { path: "mode", component: ModePage /*, meta: { requiresAuth: true }*/ },
-            { path: "parent", component: ParentPage /*, meta: { requiresAuth: true }*/ },
+            { path: "packing", component: PackingPage /*, meta: { requiresAuth: true }*/ },
             { path: "transaction", component: TransactionPage /*, meta: { requiresAuth: true }*/ },
             { path: "location", component: LocationPage /*, meta: { requiresAuth: true }*/ },
-            { path: "moveAsset", component: MoveAssetPage /*, meta: { requiresAuth: true }*/ }
+            { path: "move-assets", component: MoveAssetsPage /*, meta: { requiresAuth: true }*/ }
         ],
     },
 ];
