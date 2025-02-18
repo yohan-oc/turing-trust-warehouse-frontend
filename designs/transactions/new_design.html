@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work in Progress Palleting</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  </head>
+<link rel="stylesheet" href="styles.css">
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      <img src="your_logo.png" alt="Turing Trust Logo"> </div>
+    <div class="logout">
+      <button>Log out</button>
+    </div>
+  </div>
+
+  <h1>Work in progress palleting</h1>
+
+  <div class="row">
+    <div class="col-md-8">  <div class="transactions">
+      <h2>Transactions</h2>
+      <div class="input-group">
+        <input type="text" placeholder="Scan or enter asset ID">
+        <button>Add</button>
+      </div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Asset ID</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>5</td>
+          <td>SB004321</td>
+          <td>SB004321 is already assigned to XXX123</td>
+          <td></td> </tr>
+        <tr>
+          <td>4</td>
+          <td>SB001243</td>
+          <td>SB001243 is already assigned to XXX123</td>
+          <td></td> </tr>
+        <tr>
+          <td>3</td>
+          <td>SB003412</td>
+          <td>SB003412 is already assigned to XXX123</td>
+          <td></td> </tr>
+        </tbody>
+      </table>
+    </div>
+
+      <div class="inventory">
+        <h2>Inventory List</h2>
+        <p>Assets assigned to the parent will display below.</p>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Asset ID</th>
+            <th>Status</th>
+            <th>Make</th>
+            <th>Model</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>SB004321</td>
+            <td>Boxed for shipping</td>
+            <td>Acer</td>
+            <td>0560X</td>
+          </tr>
+          <tr>
+            <td>SB001243</td>
+            <td>Boxed for shipping</td>
+            <td>Dell</td>
+            <td>Inspiron</td>
+          </tr>
+          <tr>
+            <td>SB003412</td>
+            <td>Boxed for shipping</td>
+            <td>Apple</td>
+            <td>Macbook Air</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-4">  <div class="summary">
+      <div class="parent-id">
+        <h3>Parent ID</h3>
+        <p>XXX123</p>
+      </div>
+      <div class="transaction-errors">
+        <h3>Transaction Errors</h3>
+        <p>0</p>
+      </div>
+      <div class="inventory-count">
+        <h3>Inventory List Count</h3>
+        <p>3</p>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button>Finish scanning</button>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
