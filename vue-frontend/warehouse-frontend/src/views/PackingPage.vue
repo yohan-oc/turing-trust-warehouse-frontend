@@ -329,7 +329,7 @@ export default {
             <label for="assetId" class="form-label">Asset ID</label>
             <div class="d-flex">
               <input type="text" class="form-control" id="assetId" v-model="assetId" ref="assetId"
-                     @keyup.enter="scanAsset" @blur="ensureFocus" style="width: 460px;">
+                     @keyup.enter="scanAsset" @blur="ensureFocus" style="width: 460px;" placeholder="Scan or enter asset ID">
               <button class="btn btn-secondary" @click="scanAsset" style="margin-left: 8px; width: 60px; height: 38px;">
                 <span v-if="isAssetScanning" class="spinner-border spinner-border-sm"></span>
                 <span v-else>Add</span>

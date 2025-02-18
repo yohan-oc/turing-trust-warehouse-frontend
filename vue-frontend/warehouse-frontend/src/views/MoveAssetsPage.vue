@@ -279,15 +279,15 @@ export default {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Scan parent</h5>
+            <h5 class="modal-title">Scan location</h5>
           </div>
 
           <div class="modal-body">
-            <img src="../assets/parent-scan.png" alt="Parent Id" class="logo">
-            <p class="text-muted">Scan the barcode or enter the ID of the pallet that you’ll be adding boxes to.</p>
+            <img src="../assets/location-scan.png" alt="Parent Id" class="logo">
+            <p class="text-muted">Scan the barcode or enter the location ID of where the assets are being moved to.</p>
 
             <div class="mb-3">
-              <label for="parentId" class="form-label">Parent ID</label>
+              <label for="parentId" class="form-label">Location ID</label>
               <input type="text" class="form-control" id="parentId" v-model="parentId" ref="parentId"
                      @keyup.enter="scanParentId">
             </div>
@@ -325,6 +325,7 @@ export default {
       <div class="col-md-9">
         <div class="card p-3 mt-3">
           <h4 style="color: #075976">Transactions</h4>
+          <p style="padding-bottom: 5px;">Scan an asset to get started</p>
           <div class="col-md-6" style="padding-bottom: 25px;">
             <label for="assetId" class="form-label">Asset ID</label>
             <div class="d-flex">
@@ -399,8 +400,8 @@ export default {
 
         <!-- Inventory List -->
         <div class="card p-3 mt-5">
-          <h4 style="color: #075976">Inventory List</h4>
-          <p style="padding-bottom: 5px;">Assets assigned to the parent will display below.</p>
+          <h4 style="color: #075976">Completed asset moves</h4>
+          <p style="padding-bottom: 5px;">Assets that have been successfully moved will be listed below.</p>
           <table class="table">
             <thead>
             <tr>
@@ -571,7 +572,7 @@ thead {
 .logo {
   display: block;
   margin: 0 auto 15px;
-  width: 48px;
+  height: 48px;
 }
 
 .title {
