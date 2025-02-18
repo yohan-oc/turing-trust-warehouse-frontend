@@ -234,18 +234,18 @@ export default {
         OK: "ok-status"
       }[type] || "";
     },
-    getTableTd(type) {
+    getTableCell(type) {
       return {
-        Verify: "verify-td",
-        Problem: "problem-td",
-        OK: "ok-td"
+        Verify: "verify-cell",
+        Problem: "problem-cell",
+        OK: "ok-cell"
       }[type] || "";
     },
-    getTable1Td(type) {
+    getTable1stCell(type) {
       return {
-        Verify: "verify-1td",
-        Problem: "problem-1td",
-        OK: "ok-1td"
+        Verify: "verify-1stCell",
+        Problem: "problem-1stCell",
+        OK: "ok-1stCell"
       }[type] || "";
     },
     goBack() {
@@ -349,16 +349,16 @@ export default {
 
               <!-- New UI Design -->
               <tr v-for="(item) in transactionsList" :key="item.id">
-                <td :class="[getTable1Td(item.response_type)]">
+                <td :class="[getTable1stCell(item.response_type)]">
                   {{ item.id }}
                 </td>
-                <td :class="[getTableTd(item.response_type)]">
+                <td :class="[getTableCell(item.response_type)]">
                   {{ item.assetId }}
                 </td>
-                <td :class="[getTableTd(item.response_type)]">
+                <td :class="[getTableCell(item.response_type)]">
                     {{ item.message }}
                 </td>
-                <td :class="[getTableTd(item.response_type)]">
+                <td :class="[getTableCell(item.response_type)]">
                   <button v-if="item.response_type === 'Verify'" class="btn btn-secondary"
                           style="min-width: 66px;" @click="forceAsset(item)">
                     <span v-if="item.isForcing" class="spinner-border spinner-border-sm"></span>
@@ -589,25 +589,25 @@ thead {
   color: #fff;
 }
 
-.verify-1td {
+.verify-1stCell {
   background: rgba(255, 193, 7, 0.2);
   border-left: 2px solid rgba(255, 193, 7, 1);
 }
-.problem-1td {
+.problem-1stCell {
   background: rgba(220, 53, 69, 0.2);
   border-left: 2px solid rgba(220, 53, 69, 1);
 }
-.ok-1td {
+.ok-1stCell {
   background: rgba(25, 135, 84, 0.2);
   border-left: 2px solid rgba(25, 135, 84, 1);
 }
-.verify-td {
+.verify-cell {
   background: rgba(255, 193, 7, 0.2);
 }
-.problem-td {
+.problem-cell {
   background: rgba(220, 53, 69, 0.2);
 }
-.ok-td {
+.ok-cell {
   background: rgba(25, 135, 84, 0.2);
 }
 </style>
