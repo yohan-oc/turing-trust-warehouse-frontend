@@ -6,6 +6,7 @@ import ModePage from "../views/ModePage.vue";
 import ParentPage from "../views/ParentPage.vue";
 import LocationPage from "../views/LocationPage.vue";
 import TransactionPage from "../views/TransactionPage.vue";
+import MoveAssetPage from "../views/MoveAssetPage.vue";
 
 const routes = [
     // { path: "/", component: LoginPage },
@@ -13,11 +14,12 @@ const routes = [
         path: "/",
         component: DefaultLayout,
         children: [
-            { path: "", component: ModePage /*, meta: { requiresAuth: true }*/ },
-            { path: "home", component: HomePage /*, meta: { requiresAuth: true }*/ },
+            { path: "", component: HomePage /*, meta: { requiresAuth: true }*/ },
+            { path: "mode", component: ModePage /*, meta: { requiresAuth: true }*/ },
             { path: "parent", component: ParentPage /*, meta: { requiresAuth: true }*/ },
             { path: "transaction", component: TransactionPage /*, meta: { requiresAuth: true }*/ },
-            { path: "location", component: LocationPage /*, meta: { requiresAuth: true }*/ }
+            { path: "location", component: LocationPage /*, meta: { requiresAuth: true }*/ },
+            { path: "moveAsset", component: MoveAssetPage /*, meta: { requiresAuth: true }*/ }
         ],
     },
 ];

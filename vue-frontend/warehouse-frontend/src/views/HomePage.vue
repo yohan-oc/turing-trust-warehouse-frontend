@@ -8,8 +8,11 @@ export default {
   mounted() {
   },
   methods: {
-    hello(){
-
+    navigateToModePage(){
+      this.$router.push("/mode");
+    },
+    navigateToMoveAssetPage(){
+      this.$router.push("/moveAsset");
     }
   },
 };
@@ -23,7 +26,7 @@ export default {
 
     <div class="row" style="padding-top: 15px;">
       <div class="col-md-4">
-        <div class="card" @click="hello">
+        <div class="card" @click="navigateToModePage">
           <div class="d-flex align-items-start">
             <img src="../assets/palleting-and-shipping.png" alt="Work in Progress" width="50" class="me-3">
             <span style="font-size: 28px">Work in progress palleting</span>
@@ -35,7 +38,7 @@ export default {
       </div>
 
       <div class="col-md-4">
-        <div class="card">
+        <div class="card" @click="navigateToMoveAssetPage">
           <div class="d-flex align-items-start">
             <img src="../assets/moving-location.png" alt="Work in Progress" width="50" class="me-3">
             <span style="font-size: 28px">Moving assets</span>
